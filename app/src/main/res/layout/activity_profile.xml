@@ -26,23 +26,20 @@
             android:textSize="20sp"
             android:text="Profile"/>
 
-
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="right"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            android:layout_width="48dp"
+            android:id="@+id/cartView"
+            android:onClick="viewCart"
+            android:layout_height="48dp">
 
             <ImageView
                 android:id="@+id/cart"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/cart"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:onClick="viewCart"/>
-
+                android:layout_gravity="center" />
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>

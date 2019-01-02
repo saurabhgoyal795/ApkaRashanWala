@@ -17,6 +17,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.dev.apkarashanwala.db.CartItemDB;
+import com.dev.apkarashanwala.db.OrderDB;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 import com.dev.apkarashanwala.networksync.OrderDetailsRequest;
 import com.dev.apkarashanwala.usersession.UserSession;
@@ -111,7 +112,7 @@ public class OrderDetails extends AppCompatActivity {
         getPlaced_user_email=user.get(UserSession.KEY_EMAIL);
         getPlaced_user_mobile_no=user.get(UserSession.KEY_MOBiLE);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         currdatetime = sdf.format(new Date());
     }
 
@@ -197,6 +198,11 @@ public class OrderDetails extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             CartItemDB.deleteCart();
+            OrderDB item=new OrderDB();
+            item.orderId = order_reference_id;
+            item.total=totalAmount.getText().toString();
+            item.date=currdatetime;
+            OrderDB.add(null,item);
             return true;
         }
 

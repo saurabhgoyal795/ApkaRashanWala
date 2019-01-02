@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.dev.apkarashanwala.Utility.CommonUtility;
 import com.dev.apkarashanwala.db.CartItemDB;
+import com.dev.apkarashanwala.db.OrderDB;
 import com.dev.apkarashanwala.db.ProductItemDB;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -44,7 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         mIsCreatingDB = true;
         ProductItemDB.onCreate(db);
         CartItemDB.onCreate(db);
-
+        OrderDB.onCreate(db);
         mIsCreatingDB = false;
     }
 
