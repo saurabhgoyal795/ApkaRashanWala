@@ -169,21 +169,30 @@ public class IndividualProduct extends AppCompatActivity {
     }
 
     public void addToCart(View view) {
-           addToCart();
+           addToCart(false);
+    }
+    public void addToCart2(View view) {
+        addToCart(true);
     }
 
-    private void addToCart(){
+    public void viewCart(View view) {
+        startActivity(new Intent(this, Cart.class));
+        finish();
+    }
+
+
+    private void addToCart(Boolean flag){
         if(mAddToCartTask != null){
             mAddToCartTask.cancel(true);
         }
         mAddToCartTask = new AddToCartTask();
-        mAddToCartTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mAddToCartTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,flag);
     }
 
-    class AddToCartTask extends AsyncTask<Void, Void , Boolean> {
+    class AddToCartTask extends AsyncTask<Boolean, Void , Boolean> {
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
+        protected Boolean doInBackground(Boolean... booleans) {
             CartItemDB item=new CartItemDB();
             item.productId=productData.productId;
             item.categoryId=productData.categoryId;
@@ -194,13 +203,17 @@ public class IndividualProduct extends AppCompatActivity {
             item.productImage=productData.productImage;
             item.quantity = quantity;
             CartItemDB.add(null,item);
-            return true;
+            return booleans[0];
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             session.increaseCartValue();
             Toast.makeText(IndividualProduct.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+            if (aBoolean){
+                startActivity(new Intent(IndividualProduct.this,Cart.class));
+                finish();
+            }
 
         }
     }
