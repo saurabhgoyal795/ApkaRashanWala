@@ -199,7 +199,7 @@ public class OrderDetails extends AppCompatActivity {
         protected Boolean doInBackground(String... params) {
             CartItemDB.deleteCart();
             OrderDB item=new OrderDB();
-            item.orderId = order_reference_id;
+            item.orderId = Integer.valueOf(order_reference_id);
             item.total=totalAmount.getText().toString();
             item.date=currdatetime;
             OrderDB.add(null,item);

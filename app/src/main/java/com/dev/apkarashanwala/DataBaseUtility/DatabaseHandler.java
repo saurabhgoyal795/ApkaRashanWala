@@ -53,6 +53,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try{
             ProductItemDB.onUpgrade(db,oldVersion,newVersion);
+            CartItemDB.onUpgrade(db,oldVersion,newVersion);
+            OrderDB.onUpgrade(db,oldVersion,newVersion);
 
         } catch(Throwable e) {
         if(CommonUtility.isDebugModeOn) {

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class OrderDB implements Parcelable {
 
     private static final String TABLE_NAME = "OrderDB";
-    public String orderId;
+    public int orderId;
     public String total;
     public String date;
 
@@ -33,7 +33,7 @@ public class OrderDB implements Parcelable {
 
     }
 
-    public OrderDB(String orderId, String total, String date) {
+    public OrderDB(int orderId, String total, String date) {
         this.orderId=orderId;
         this.total=total;
         this.date = date;
@@ -41,7 +41,7 @@ public class OrderDB implements Parcelable {
 
 
     public OrderDB(Parcel in) {
-        orderId = in.readString();
+        orderId = in.readInt();
         total = in.readString();
         date = in.readString();
     }
@@ -53,7 +53,7 @@ public class OrderDB implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(orderId);
+        dest.writeInt(orderId);
         dest.writeString(total);
         dest.writeString(date);
     }
@@ -82,9 +82,9 @@ public class OrderDB implements Parcelable {
     }
 
     private static final String QUERY_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-            + COL_ORDER_ID + " TEXT PRIMARY KEY,"
-            + COL_TOTAL + " INTEGER ,"
-            + COL_DATE + " TEXT)";
+            + COL_ORDER_ID + " INTEGER PRIMARY KEY ,"
+            + COL_TOTAL + " TEXT ,"
+            + COL_DATE + " TEXT )";
 
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL(QUERY_CREATE_TABLE);
@@ -129,7 +129,7 @@ public class OrderDB implements Parcelable {
             if(cursor.moveToFirst()) {
                 do {
                     OrderDB product = new OrderDB(
-                            cursor.getString(cursor.getColumnIndex(COL_ORDER_ID)),
+                            cursor.getInt(cursor.getColumnIndex(COL_ORDER_ID)),
                             cursor.getString(cursor.getColumnIndex(COL_TOTAL)),
                             cursor.getString(cursor.getColumnIndex(COL_DATE)));
                     productList.add(product);

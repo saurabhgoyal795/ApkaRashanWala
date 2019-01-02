@@ -164,6 +164,37 @@
                 android:layout_height="@dimen/view_width_small"
                 android:background="@color/grey_light"
                 android:layout_marginTop="2dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="30dp"
+                style="@style/headingfonts"
+                android:text="MY Orders"
+                android:textColor="#424242"/>
+        <LinearLayout
+            android:id="@+id/activity_cart_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <FrameLayout
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9.5">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:scrollbars="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"/>
+
+            </FrameLayout>
+        </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/addressview"
@@ -203,6 +234,7 @@
 
             <View android:layout_width="match_parent"
                 android:layout_height="@dimen/view_width_small"
+                android:visibility="gone"
                 android:background="@color/grey_light"
                 android:layout_marginTop="2dp"/>
 
