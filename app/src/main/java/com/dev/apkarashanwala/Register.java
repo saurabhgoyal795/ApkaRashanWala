@@ -94,11 +94,11 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
 
                 //TODO AFTER VALDATION
-                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()){
+                if ( validateName() && validateEmail() && validatePass() && validateNumber()){
 
                     name=edtname.getText().toString();
                     email=edtemail.getText().toString();
-                    password=edtcnfpass.getText().toString();
+                    password=edtpass.getText().toString();
                     mobile=edtnumber.getText().toString();
 
 
@@ -112,8 +112,8 @@ public class Register extends AppCompatActivity {
 
 
                     //Validation Success
-                    convertBitmapToString(profilePicture);
-                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, new Response.Listener<String>() {
+//                    convertBitmapToString(profilePicture);
+                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             progressDialog.dismiss();
@@ -121,12 +121,11 @@ public class Register extends AppCompatActivity {
                             Log.e("Rsponse from server", response);
 
                             try {
-                                if (new JSONObject(response).getBoolean("success")) {
+                                if (new JSONObject(response).getJSONObject("response").has("success")) {
 
                                     Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
 
-                                    sendRegistrationEmail(name,email);
-
+//                                    sendRegistrationEmail(name,email);
 
                                 } else
                                     Toasty.error(Register.this,"User Already Exist",Toast.LENGTH_SHORT,true).show();
@@ -212,11 +211,11 @@ public class Register extends AppCompatActivity {
                         .withSendingMessage("Sending Welcome Greetings to Your Email !")
                         .withSendingMessageSuccess("Kindly Check Your Email now !")
                         .withSendingMessageError("Failed to send password ! Try Again !")
-                        .withUsername("beingdevofficial@gmail.com")
-                        .withPassword("Singh@30")
+                        .withUsername("apkarashanwala@gmail.com")
+                        .withPassword("Aa!102030")
                         .withMailto(emails)
                         .withType(BackgroundMail.TYPE_PLAIN)
-                        .withSubject("Greetings from Magic Print")
+                        .withSubject("Greetings from Apka RashanWala")
                         .withBody("Hello Mr/Miss, "+ name + "\n " + getString(R.string.registermail1))
                         .send();
 
@@ -457,6 +456,12 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onStop () {
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
 
