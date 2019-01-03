@@ -136,7 +136,7 @@ public class OrderDetails extends AppCompatActivity {
             for (int i=0; i< cartcollect.size();i++){
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("produzzct_id", String.valueOf(cartcollect.get(i).productId));
+                    jsonObject.put("product_id", String.valueOf(cartcollect.get(i).productId));
                     jsonObject.put("quantity", String.valueOf(cartcollect.get(i).quantity));
                     jsonArray.put(jsonObject);
                 } catch (JSONException e) {
