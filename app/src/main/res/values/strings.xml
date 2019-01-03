@@ -27,6 +27,8 @@
     <string name="myorders">My Orders</string>
     <string name="cart">Cart</string>
     <string name="logout">Logout</string>
+    <string name="call">Call Us</string>
+
     <string name="feedback">Feedback</string>
     <string name="aboutapp">About App</string>
     <string name="rate">Rate Us</string>

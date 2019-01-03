@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 import com.dev.apkarashanwala.networksync.RegisterRequest;
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
+import com.dev.apkarashanwala.usersession.UserSession;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -54,6 +55,8 @@ public class Register extends AppCompatActivity {
     RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
+    private UserSession session;
+
     public static final String TAG = "MyTag";
 
 
@@ -84,6 +87,8 @@ public class Register extends AppCompatActivity {
         edtnumber.addTextChangedListener(numberWatcher);
 
         requestQueue = Volley.newRequestQueue(Register.this);
+
+        session= new UserSession(getApplicationContext());
 
         //validate user details and register user
 
@@ -123,9 +128,16 @@ public class Register extends AppCompatActivity {
                             try {
                                 if (new JSONObject(response).getJSONObject("response").has("success")) {
 
-                                    Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
+                                    Toasty.success(Register.this,"Registered Succesfully ",Toast.LENGTH_SHORT,true).show();
 
 //                                    sendRegistrationEmail(name,email);
+                                    session.createLoginSession(name,email,mobile, "logo.jpg",new JSONObject(response).getJSONObject("response").getString("success"));
+
+                                    //count value of firebase cart and wishlist
+
+                                    Intent loginSuccess = new Intent(Register.this, MainActivity.class);
+                                    startActivity(loginSuccess);
+                                    finish();
 
                                 } else
                                     Toasty.error(Register.this,"User Already Exist",Toast.LENGTH_SHORT,true).show();

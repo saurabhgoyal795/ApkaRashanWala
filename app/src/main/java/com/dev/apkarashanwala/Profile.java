@@ -45,6 +45,7 @@ public class Profile extends AppCompatActivity {
     private LinearLayout addressview;
     private LinearLayout activitycartlist;
     private RecyclerView mRecyclerView;
+    private TextView myorderText;
 
     //to get user session data
     private UserSession session;
@@ -68,7 +69,7 @@ public class Profile extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         activitycartlist = findViewById(R.id.activity_cart_list);
         mRecyclerView = findViewById(R.id.recyclerview);
-
+        myorderText = findViewById(R.id.myorderText);
         if (mRecyclerView != null) {
             mRecyclerView.setHasFixedSize(true);
         }
@@ -184,7 +185,7 @@ public class Profile extends AppCompatActivity {
             }
             if (aBoolean) {
                 mRecyclerView.setVisibility(View.VISIBLE);
-
+                myorderText.setVisibility(View.VISIBLE);
                 if(adapter == null) {
                     adapter = new MyOrderAdataper(orderList,R.layout.my_order_item_layout,Profile.this);
                     mRecyclerView.setAdapter(adapter);

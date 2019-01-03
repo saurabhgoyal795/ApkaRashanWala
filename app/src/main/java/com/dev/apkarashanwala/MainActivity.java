@@ -1,8 +1,13 @@
 package com.dev.apkarashanwala;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -46,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private UserSession session;
     private HashMap<String, String> user;
     private String name, email, photo, mobile;
-    private String  first_time;
+    private String first_time;
+    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+    Intent mIntent;
 
 
     @Override
@@ -72,60 +79,60 @@ public class MainActivity extends AppCompatActivity {
 
     private void tapview() {
 
-            new TapTargetSequence(this)
-                    .targets(
-                            TapTarget.forView(findViewById(R.id.view_profile), "Profile", "You can view and edit your profile here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)                   // Whether to draw a drop shadow or not
-                                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.third),
-                            TapTarget.forView(findViewById(R.id.cart), "Your Cart", "Here is Shortcut to your cart !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)
-                                    .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.second),
-                            TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
-                                    .targetCircleColor(R.color.colorAccent)
-                                    .titleTextColor(R.color.colorAccent)
-                                    .titleTextSize(25)
-                                    .descriptionTextSize(15)
-                                    .descriptionTextColor(R.color.accent)
-                                    .drawShadow(true)
-                                    .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-                                    .tintTarget(true)
-                                    .transparentTarget(true)
-                                    .outerCircleColor(R.color.fourth))
-                    .listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
-                        @Override
-                        public void onSequenceFinish() {
-                            session.setFirstTime(false);
-                            Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
-                        }
+        new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(findViewById(R.id.view_profile), "Profile", "You can view and edit your profile here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)                   // Whether to draw a drop shadow or not
+                                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.third),
+                        TapTarget.forView(findViewById(R.id.cart), "Your Cart", "Here is Shortcut to your cart !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)
+                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.second),
+                        TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)
+                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.fourth))
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        session.setFirstTime(false);
+                        Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
+                    }
 
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                            // Boo
-                        }
-                    }).start();
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        // Boo
+                    }
+                }).start();
 
     }
 
@@ -196,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
 //        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.wishlist).withIcon(R.drawable.wishlist);
         PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.cart).withIcon(R.drawable.cart);
         PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
+        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.call).withIcon(R.drawable.helpccenter);
 
 //        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Offers").withIcon(R.drawable.tag);
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(R.string.aboutapp).withIcon(R.drawable.credits);
@@ -211,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 .withAccountHeader(headerResult)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        item1, item2,  item4, item5, new DividerDrawerItem(), item9,item10, new DividerDrawerItem(),item12,item13
+                        item1, item2, item4, item6, new DividerDrawerItem(), item9, item10, new DividerDrawerItem(), item12, item13
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -231,9 +239,34 @@ public class MainActivity extends AppCompatActivity {
                             case 3:
                                 startActivity(new Intent(MainActivity.this, Cart.class));
                                 break;
+//                            case 4:
+//                                session.logoutUser();
+//                                finish();
+//                                break;
                             case 4:
-                                session.logoutUser();
-                                finish();
+                                String number = ("tel:9950257451");
+                                 mIntent = new Intent(Intent.ACTION_CALL);
+                                mIntent.setData(Uri.parse(number));
+// Here, thisActivity is the current activity
+                                if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                                        Manifest.permission.CALL_PHONE)
+                                        != PackageManager.PERMISSION_GRANTED) {
+
+                                    ActivityCompat.requestPermissions(MainActivity.this,
+                                            new String[]{Manifest.permission.CALL_PHONE},
+                                            MY_PERMISSIONS_REQUEST_CALL_PHONE);
+
+                                    // MY_PERMISSIONS_REQUEST_CALL_PHONE is an
+                                    // app-defined int constant. The callback method gets the
+                                    // result of the request.
+                                } else {
+                                    //You already have permission
+                                    try {
+                                        startActivity(mIntent);
+                                    } catch(SecurityException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                                 break;
                             case 5:
                                 break;
@@ -254,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                                 finish();
                                 break;
-
                             case 10:
                                 if (result != null && result.isDrawerOpen()) {
                                     result.closeDrawer();
@@ -295,6 +327,32 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewCart(View view) {
         startActivity(new Intent(MainActivity.this, Cart.class));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL_PHONE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the phone call
+                    startActivity(mIntent);
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getApplicationContext(),"Please allow calling permission. To allow go to settings and check app permissions there",Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override
