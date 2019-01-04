@@ -292,10 +292,8 @@ public class Register extends AppCompatActivity {
 
         check = edtpass.getText().toString();
 
-        if (check.length() < 4 || check.length() > 20) {
+        if (check.length() < 4 || check.length() > 30) {
            return false;
-        } else if (!check.matches("^[A-za-z0-9@]+")) {
-            return false;
         }
         return true;
     }
@@ -305,8 +303,6 @@ public class Register extends AppCompatActivity {
         check = edtemail.getText().toString();
 
         if (check.length() < 4 || check.length() > 40) {
-            return false;
-        } else if (!check.matches("^[A-za-z0-9.@]+")) {
             return false;
         } else if (!check.contains("@") || !check.contains(".")) {
                 return false;
@@ -319,7 +315,7 @@ public class Register extends AppCompatActivity {
 
         check = edtname.getText().toString();
 
-        return !(check.length() < 4 || check.length() > 20);
+        return !(check.length() < 4 || check.length() > 50);
 
     }
 
@@ -341,8 +337,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 20) {
-                edtname.setError("Name Must consist of 4 to 20 characters");
+            if (check.length() < 4 || check.length() > 50) {
+                edtname.setError("Name Must consist of 4 to 50 characters");
             }
         }
 
@@ -367,9 +363,7 @@ public class Register extends AppCompatActivity {
             check = s.toString();
 
             if (check.length() < 4 || check.length() > 40) {
-                edtemail.setError("Email Must consist of 4 to 20 characters");
-            } else if (!check.matches("^[A-za-z0-9.@]+")) {
-                edtemail.setError("Only . and @ characters allowed");
+                edtemail.setError("Email Must consist of 4 to 40 characters");
             } else if (!check.contains("@") || !check.contains(".")) {
                 edtemail.setError("Enter Valid Email");
             }
@@ -396,10 +390,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 20) {
-                edtpass.setError("Password Must consist of 4 to 20 characters");
-            } else if (!check.matches("^[A-za-z0-9@]+")) {
-                edtemail.setError("Only @ special character allowed");
+            if (check.length() < 4 || check.length() > 30) {
+                edtpass.setError("Password Must consist of 4 to 30 characters");
             }
         }
 
