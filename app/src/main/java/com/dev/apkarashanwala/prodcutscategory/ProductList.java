@@ -18,7 +18,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +53,14 @@ public class ProductList extends AppCompatActivity {
     private boolean isFetched = false;
     int categoryId = 20;
     String productTitle = "Products";
+    RelativeLayout searchViewlayout;
     public static String Product_LIST_REFRESH = "com.productlist.list.refresh";
+    TextView productText;
+    LinearLayout cartView;
+    LinearLayout searchView;
+    Button search_button;
+    EditText searchEdittext;
+    ArrayList<ProductItemDB> startProductList;
 
     private BroadcastReceiver event = new BroadcastReceiver() {
         @Override
@@ -84,9 +95,13 @@ public class ProductList extends AppCompatActivity {
 
         //Initializing our Recyclerview
         mRecyclerView = findViewById(R.id.my_recycler_view);
+        searchViewlayout = findViewById(R.id.searchViewlayout);
         tv_no_item = findViewById(R.id.tv_no_cards);
-
-
+        cartView = findViewById(R.id.cartView);
+        searchView = findViewById(R.id.searchView);
+        productText= findViewById(R.id.productText);
+        search_button = findViewById(R.id.search_button);
+        searchEdittext = findViewById(R.id.searchEdittext);
         if (mRecyclerView != null) {
             //to enable optimization of recyclerview
             mRecyclerView.setHasFixedSize(true);
@@ -161,7 +176,36 @@ public class ProductList extends AppCompatActivity {
         finish();
     }
 
+    public void searchItem(View view){
+        searchViewlayout.setVisibility(View.VISIBLE);
+        searchView.setVisibility(View.GONE);
+        cartView.setVisibility(View.GONE);
+        productText.setVisibility(View.GONE);
+    }
 
+    public void search(View view){
+        if (searchEdittext.getText().toString().trim().equalsIgnoreCase("")){
+            return;
+        }
+        if (search_button.getText().toString().equalsIgnoreCase("search")) {
+            search_button.setText("Cancel");
+            ArrayList<ProductItemDB> temp = new ArrayList<>();
+            for (int i =0 ; i<productList.size();i++){
+                if(productList.get(i).productTitle.toLowerCase().contains(searchEdittext.getText().toString().trim().toLowerCase())){
+                    temp.add(productList.get(i));
+                }
+            }
+            adapter.refreshAdapter(temp);
+        }else  {
+            search_button.setText("Search");
+            adapter.refreshAdapter(productList);
+            searchViewlayout.setVisibility(View.GONE);
+            searchView.setVisibility(View.VISIBLE);
+            cartView.setVisibility(View.VISIBLE);
+            productText.setVisibility(View.VISIBLE);
+
+        }
+    }
 
     public void Notifications(View view) {
     }

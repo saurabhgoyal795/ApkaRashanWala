@@ -5,6 +5,8 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="register">Register</string>
+    <string name="search">Search</string>
+
     <string name="about_activity_title">About Us</string>
     <string name="about_activity_description"><b>Boost Your Brand and Company Image with Premium Online Printing Services from Us ! </b></string>
     <string name="title_activity_main">MainActivity</string>

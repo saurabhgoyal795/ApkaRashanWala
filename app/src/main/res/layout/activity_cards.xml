@@ -15,30 +15,82 @@
             android:id="@+id/toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
+            android:visibility="visible"
             android:background="@color/colorAccent"
             android:minHeight="?attr/actionBarSize">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Products"/>
 
-            <LinearLayout
-                android:layout_gravity="right"
-                android:layout_marginRight="8dp"
-                android:layout_width="48dp"
-                android:id="@+id/cartView"
-                android:onClick="viewCart"
-                android:layout_height="48dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/productText"
+                    android:text="Products"/>
 
-                <ImageView
-                    android:id="@+id/cart"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/cart"
-                    android:layout_gravity="center" />
-            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="right"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="48dp"
+                    android:id="@+id/cartView"
+                    android:onClick="viewCart"
+                    android:layout_height="48dp">
+
+                    <ImageView
+                        android:id="@+id/cart"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/cart"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="right"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="48dp"
+                    android:id="@+id/searchView"
+                    android:onClick="searchItem"
+                    android:layout_height="48dp">
+
+                    <ImageView
+                        android:id="@+id/search"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/search"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:id="@+id/searchViewlayout"
+                android:visibility="gone"
+                android:orientation="horizontal">
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/searchEdittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Enter Product name"
+                    android:singleLine="true"
+                    android:layout_toLeftOf="@+id/search_button"
+                    app:met_primaryColor="@color/colorPrimaryDark"
+                    app:met_floatingLabel="highlight" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/search_button"
+                    android:layout_gravity="right"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/search"
+                    android:onClick="search"
+                    android:textColor="@color/gen_white"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
