@@ -102,7 +102,7 @@ public class OrderDetails extends AppCompatActivity {
         //delivery date
         SimpleDateFormat formattedDate = new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 7);  // number of days to add
+        c.add(Calendar.DATE, 1);  // number of days to add
         String tomorrow = (formattedDate.format(c.getTime()));
         deliveryDate.setText(tomorrow);
 

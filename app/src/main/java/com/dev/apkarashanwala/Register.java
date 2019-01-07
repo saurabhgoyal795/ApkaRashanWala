@@ -292,7 +292,7 @@ public class Register extends AppCompatActivity {
 
         check = edtpass.getText().toString();
 
-        if (check.length() < 4 || check.length() > 30) {
+        if (check.length() < 1 || check.length() > 50) {
            return false;
         }
         return true;
@@ -302,7 +302,7 @@ public class Register extends AppCompatActivity {
 
         check = edtemail.getText().toString();
 
-        if (check.length() < 4 || check.length() > 40) {
+        if (check.length() < 1 || check.length() > 50) {
             return false;
         } else if (!check.contains("@") || !check.contains(".")) {
                 return false;
@@ -315,7 +315,7 @@ public class Register extends AppCompatActivity {
 
         check = edtname.getText().toString();
 
-        return !(check.length() < 4 || check.length() > 50);
+        return !(check.length() < 1 || check.length() > 50);
 
     }
 
@@ -337,8 +337,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 50) {
-                edtname.setError("Name Must consist of 4 to 50 characters");
+            if (check.length() < 1 || check.length() > 50) {
+                edtname.setError("Name Must consist of 1 to 50 characters");
             }
         }
 
@@ -362,8 +362,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 40) {
-                edtemail.setError("Email Must consist of 4 to 40 characters");
+            if (check.length() < 1 || check.length() > 50) {
+                edtemail.setError("Email Must consist of 1 to 40 characters");
             } else if (!check.contains("@") || !check.contains(".")) {
                 edtemail.setError("Enter Valid Email");
             }
@@ -390,8 +390,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 30) {
-                edtpass.setError("Password Must consist of 4 to 30 characters");
+            if (check.length() < 1 || check.length() > 50) {
+                edtpass.setError("Password Must consist of 1 to 30 characters");
             }
         }
 
