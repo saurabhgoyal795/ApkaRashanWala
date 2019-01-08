@@ -184,10 +184,10 @@ public class ProductList extends AppCompatActivity {
     }
 
     public void search(View view){
-        if (searchEdittext.getText().toString().trim().equalsIgnoreCase("")){
-            return;
-        }
         if (search_button.getText().toString().equalsIgnoreCase("search")) {
+            if (searchEdittext.getText().toString().trim().equalsIgnoreCase("")){
+                return;
+            }
             search_button.setText("Cancel");
             ArrayList<ProductItemDB> temp = new ArrayList<>();
             for (int i =0 ; i<productList.size();i++){
