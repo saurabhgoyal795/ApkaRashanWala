@@ -132,30 +132,31 @@
                         </RelativeLayout>
 
                     </android.support.v7.widget.CardView>
-
                     <android.support.v7.widget.CardView
                         style="@style/homegridcard"
-                    card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:tag="39"
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:tag="43"
                         android:onClick="productOpenActivity">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/tshirts"
-                            style="@style/homegridimage"
-                            android:src="@drawable/bakery" />
+                            <ImageView
+                                android:id="@+id/keychain"
+                                style="@style/homegridimage"
+                                android:src="@drawable/cleaning" />
 
-                        <TextView
-                            android:layout_below="@id/tshirts"
-                            android:text="T-Shirts"
-                            android:visibility="gone"
-                            style="@style/homegridtext"/>
+                            <TextView
+                                android:layout_below="@id/keychain"
+                                android:text="Keychains"
+                                android:visibility="gone"
+                                style="@style/homegridtext"/>
 
-                    </RelativeLayout>
-                </android.support.v7.widget.CardView>
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
 
           </LinearLayout>
 
@@ -249,27 +250,27 @@
                     <android.support.v7.widget.CardView
                         style="@style/homegridcard"
                         card_view:cardCornerRadius="@dimen/card_album_radius"
-                        android:tag="43"
+                        android:tag="39"
                         android:onClick="productOpenActivity">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/keychain"
-                            style="@style/homegridimage"
-                            android:src="@drawable/cleaning" />
+                            <ImageView
+                                android:id="@+id/tshirts"
+                                style="@style/homegridimage"
+                                android:src="@drawable/bakery" />
 
-                        <TextView
-                            android:layout_below="@id/keychain"
-                            android:text="Keychains"
-                            android:visibility="gone"
-                            style="@style/homegridtext"/>
+                            <TextView
+                                android:layout_below="@id/tshirts"
+                                android:text="T-Shirts"
+                                android:visibility="gone"
+                                style="@style/homegridtext"/>
 
-                    </RelativeLayout>
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
 
-                </android.support.v7.widget.CardView>
 
                 </LinearLayout>
                 <LinearLayout
@@ -328,6 +329,119 @@
                     </android.support.v7.widget.CardView>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="10">
+
+                    <android.support.v7.widget.CardView
+                        style="@style/homegridcard"
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:tag="49"
+                        android:onClick="productOpenActivity">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/home"
+                                style="@style/homegridimage"
+                                android:src="@drawable/equipments" />
+
+                            <TextView
+                                android:layout_below="@id/home"
+                                android:text="Home Equipments"
+                                android:visibility="gone"
+                                style="@style/homegridtext"/>
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        style="@style/homegridcard"
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:tag="48"
+                        android:onClick="productOpenActivity">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/garments"
+                                style="@style/homegridimage"
+                                android:src="@drawable/garments" />
+
+                            <TextView
+                                android:layout_below="@id/garments"
+                                android:text="Garments"
+                                android:visibility="gone"
+                                style="@style/homegridtext"/>
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="10">
+
+                    <android.support.v7.widget.CardView
+                        style="@style/homegridcard"
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:tag="50"
+                        android:onClick="productOpenActivity">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/stationary"
+                                style="@style/homegridimage"
+                                android:src="@drawable/stationary" />
+
+                            <TextView
+                                android:layout_below="@id/stationary"
+                                android:text="Bevrages"
+                                android:visibility="gone"
+                                style="@style/homegridtext"/>
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        style="@style/homegridcard"
+                        card_view:cardCornerRadius="@dimen/card_album_radius"
+                        android:tag="52"
+                        android:onClick="productOpenActivity">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/fruits"
+                                style="@style/homegridimage"
+                                android:src="@drawable/fruits" />
+
+                            <TextView
+                                android:layout_below="@id/fruits"
+                                android:text="Keychains"
+                                android:visibility="gone"
+                                style="@style/homegridtext"/>
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
 
 
             </LinearLayout>

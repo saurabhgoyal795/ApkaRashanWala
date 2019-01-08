@@ -97,10 +97,15 @@ public class Register extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //TODO AFTER VALDATION
-                if ( validateName() && validateEmail() && validatePass() && validateNumber()){
-
+                if (!validateName()){
+                    Toast.makeText(getApplicationContext(),"Please Enter the Name",Toast.LENGTH_SHORT).show();
+                }else if (! validateEmail()){
+                    Toast.makeText(getApplicationContext(),"Please Enter Valid Email",Toast.LENGTH_SHORT).show();
+                }else if (! validatePass()) {
+                    Toast.makeText(getApplicationContext(),"Please Enter Valid Password",Toast.LENGTH_SHORT).show();
+                }else if (!validateNumber()){
+                    Toast.makeText(getApplicationContext(),"Please Enter Valid 10 digit number",Toast.LENGTH_SHORT).show();
+                } else if ( validateName() && validateEmail() && validatePass() && validateNumber()){
                     name=edtname.getText().toString();
                     email=edtemail.getText().toString();
                     password=edtpass.getText().toString();
@@ -272,9 +277,7 @@ public class Register extends AppCompatActivity {
 
         check = edtnumber.getText().toString();
         Log.e("inside number",check.length()+" ");
-        if (check.length()>10) {
-           return false;
-        }else if(check.length()<10){
+        if(check.length()<10){
             return false;
         }
         return true;

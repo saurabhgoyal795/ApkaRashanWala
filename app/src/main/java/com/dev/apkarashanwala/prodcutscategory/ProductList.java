@@ -269,8 +269,8 @@ public class ProductList extends AppCompatActivity {
     @Override
     public void onBindViewHolder(final ProductItemAdataper.NewsViewHolder holder, int position) {
         holder.cardname.setText(newsItems.get(position).productTitle);
-        holder.cardprice.setText("Mrp: ₹ "+newsItems.get(position).productMrp);
-        holder.cardprice2.setText("Price: ₹ "+newsItems.get(position).productPrice);
+        holder.cardprice.setText("₹"+newsItems.get(position).productMrp);
+        holder.cardprice2.setText("Price: ₹"+newsItems.get(position).productPrice);
         holder.cardprice.setPaintFlags(holder.cardprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(context).load(CustomApplication.imagePath +newsItems.get(position).productImage).placeholder(R.drawable.noimage).into(holder.cardimage);
 
