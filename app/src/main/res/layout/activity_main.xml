@@ -49,11 +49,19 @@
                 app:lottie_autoPlay="true"
                 android:visibility="gone"
                 android:onClick="Notifications"/>
+            <ImageView
+                android:id="@+id/call"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_call_black_24dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:onClick="call"/>
 
             <ImageView
                 android:id="@+id/view_profile"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/profile"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
@@ -61,8 +69,8 @@
 
             <ImageView
                 android:id="@+id/cart"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/cart"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="15dp"
