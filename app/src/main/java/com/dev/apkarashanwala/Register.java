@@ -110,8 +110,6 @@ public class Register extends AppCompatActivity {
                     email=edtemail.getText().toString();
                     password=edtpass.getText().toString();
                     mobile=edtnumber.getText().toString();
-
-
                     final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setLabel("Please wait")

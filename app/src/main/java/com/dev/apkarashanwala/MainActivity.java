@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 //                                finish();
 //                                break;
                             case 4:
-                                String number = ("tel:9950257451");
+                                String number = ("tel:9024088049");
                                  mIntent = new Intent(Intent.ACTION_CALL);
                                 mIntent.setData(Uri.parse(number));
 // Here, thisActivity is the current activity
