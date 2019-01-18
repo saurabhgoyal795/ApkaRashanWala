@@ -163,7 +163,7 @@ public class UpdateData extends AppCompatActivity {
                                 if (new JSONObject(response).getBoolean("success")) {
                                     Toasty.success(UpdateData.this, "Updated Succesfully", Toast.LENGTH_LONG, true).show();
 
-                                    session.createLoginSession(name,newemail,mobile,photo,session.getUserDetails().get(UserSession.KEY_USERID));
+                                    session.createLoginSession(name,newemail,mobile,photo,session.getUserDetails().get(UserSession.KEY_USERID),"-1");
 
                                     Intent registersuccess = new Intent(UpdateData.this, Profile.class);
                                     startActivity(registersuccess);

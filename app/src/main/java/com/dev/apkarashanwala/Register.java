@@ -48,8 +48,8 @@ import es.dmoral.toasty.Toasty;
 
 public class Register extends AppCompatActivity {
 
-    private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber;
-    private String check,name,email,password,mobile,profile;
+    private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber,refId;
+    private String check,name,email,password,mobile,profile,refIdValue;
     CircleImageView image;
     ImageView upload;
     RequestQueue requestQueue;
@@ -79,7 +79,7 @@ public class Register extends AppCompatActivity {
         edtpass = findViewById(R.id.password);
         edtcnfpass = findViewById(R.id.confirmpassword);
         edtnumber = findViewById(R.id.number);
-
+        refId = findViewById(R.id.refId);
         edtname.addTextChangedListener(nameWatcher);
         edtemail.addTextChangedListener(emailWatcher);
         edtpass.addTextChangedListener(passWatcher);
@@ -110,6 +110,10 @@ public class Register extends AppCompatActivity {
                     email=edtemail.getText().toString();
                     password=edtpass.getText().toString();
                     mobile=edtnumber.getText().toString();
+                    refIdValue = refId.getText().toString().trim();
+                    if(refIdValue == ""){
+                        refIdValue = "-1";
+                    }
                     final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setLabel("Please wait")
@@ -121,7 +125,7 @@ public class Register extends AppCompatActivity {
 
                     //Validation Success
 //                    convertBitmapToString(profilePicture);
-                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, new Response.Listener<String>() {
+                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email,refIdValue, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             progressDialog.dismiss();
@@ -134,7 +138,7 @@ public class Register extends AppCompatActivity {
                                     Toasty.success(Register.this,"Registered Succesfully ",Toast.LENGTH_SHORT,true).show();
 
 //                                    sendRegistrationEmail(name,email);
-                                    session.createLoginSession(name,email,mobile, "logo.jpg",new JSONObject(response).getJSONObject("response").getString("success"));
+                                    session.createLoginSession(name,email,mobile, "logo.jpg",new JSONObject(response).getJSONObject("response").getString("success"),refIdValue);
 
                                     //count value of firebase cart and wishlist
 
