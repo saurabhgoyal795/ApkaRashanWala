@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ public class OrderDetails extends AppCompatActivity {
     MaterialEditText orderaddress;
     @BindView(R.id.orderpincode)
     MaterialEditText orderpincode;
+    @BindView(R.id.placeorderButton)
+    ImageView placeorderButton;
 
     private ArrayList<CartItemDB> cartcollect;
     private String payment_mode="COD",order_reference_id;
@@ -123,6 +126,7 @@ public class OrderDetails extends AppCompatActivity {
     }
 
     public void PlaceOrder(View view) {
+        placeorderButton.setClickable(false);
 
         if (validateFields(view)) {
             final KProgressHUD progressDialog=  KProgressHUD.create(OrderDetails.this)
@@ -145,11 +149,12 @@ public class OrderDetails extends AppCompatActivity {
             }
             if (jsonArray.length()<= 0){
                 progressDialog.dismiss();
+                placeorderButton.setClickable(true);
                 Toast.makeText(getApplicationContext(),"Please Add More Items",Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            OrderDetailsRequest orderDetailsRequest = new OrderDetailsRequest(ordername.getText().toString(), orderaddress.getText().toString(),ordernumber.getText().toString(),user.get(UserSession.KEY_USERID),user.get(UserSession.KEY_EMAIL),orderpincode.getText().toString(),jsonArray.toString(), new Response.Listener<String>() {
+            OrderDetailsRequest orderDetailsRequest = new OrderDetailsRequest(ordername.getText().toString(), orderaddress.getText().toString(),ordernumber.getText().toString(),user.get(UserSession.KEY_USERID),user.get(UserSession.KEY_EMAIL),orderpincode.getText().toString(),jsonArray.toString(),user.get(UserSession.KEY_REFID),totalAmount.getText().toString(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
@@ -163,6 +168,7 @@ public class OrderDetails extends AppCompatActivity {
                             new DeleteCart().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,order_reference_id);
 
                         } else {
+                            placeorderButton.setClickable(true);
                             if(jsonObject.has("error"))
                                 Toast.makeText(OrderDetails.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                             else{
@@ -178,6 +184,7 @@ public class OrderDetails extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     progressDialog.dismiss();
+                    placeorderButton.setClickable(true);
                     if (error instanceof ServerError)
                         Toast.makeText(OrderDetails.this, "Server Error", Toast.LENGTH_SHORT).show();
                     else if (error instanceof TimeoutError)

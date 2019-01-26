@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
         PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.call).withIcon(R.drawable.baseline_call_black_24dp);
 
-//        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Offers").withIcon(R.drawable.tag);
+        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Share Our App").withIcon(R.drawable.baseline_share_black_24dp);
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(R.string.aboutapp).withIcon(R.drawable.credits);
         SecondaryDrawerItem item9 = new SecondaryDrawerItem().withIdentifier(9).withName(R.string.feedback).withIcon(R.drawable.feedback);
         SecondaryDrawerItem item10 = new SecondaryDrawerItem().withIdentifier(10).withName(R.string.helpcentre).withIcon(R.drawable.helpccenter);
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 .withAccountHeader(headerResult)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        item1, item2, item4, item6, new DividerDrawerItem(), item9, item10, new DividerDrawerItem(), item12, item13
+                        item1, item2, item4, item6,item7, new DividerDrawerItem(), item9, item10, new DividerDrawerItem(), item12, item13
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -269,25 +269,28 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 5:
+                                share();
                                 break;
                             case 6:
+                                break;
+                            case 7:
                                 new EasyFeedback.Builder(MainActivity.this)
                                         .withEmail("apkarashanwal@gmail.com")
                                         .withSystemInfo()
                                         .build()
                                         .start();
                                 break;
-                            case 7:
+                            case 8:
                                 startActivity(new Intent(MainActivity.this, HelpCenter.class));
                                 break;
-                            case 8:
-                                break;
                             case 9:
+                                break;
+                            case 10:
                                 session.setFirstTimeLaunch(true);
                                 startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                                 finish();
                                 break;
-                            case 10:
+                            case 11:
                                 if (result != null && result.isDrawerOpen()) {
                                     result.closeDrawer();
                                 }
@@ -324,6 +327,21 @@ public class MainActivity extends AppCompatActivity {
     public void viewProfile(View view) {
         startActivity(new Intent(MainActivity.this, Profile.class));
     }
+
+    public void share() {
+        try {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "ApkaRashanWala");
+            String shareMessage= "\nWe have a wide range of quality products | Assured Quality. Affordable Price - At Your Home\n\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "Choose one"));
+        } catch(Exception e) {
+            //e.toString();
+        }
+    }
+
 
     public void call(View view){
         String number = ("tel:9024088049");
