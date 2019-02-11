@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -105,7 +106,13 @@ public class OrderDetails extends AppCompatActivity {
         //delivery date
         SimpleDateFormat formattedDate = new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 1);  // number of days to add
+        Calendar rightNow = Calendar.getInstance();
+        int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
+        if (currentHourIn24Format >= 17 ){
+            c.add(Calendar.DATE, 2);  // number of days to add
+        } else {
+            c.add(Calendar.DATE, 1);  // number of days to add
+        }
         String tomorrow = (formattedDate.format(c.getTime()));
         deliveryDate.setText(tomorrow);
 
