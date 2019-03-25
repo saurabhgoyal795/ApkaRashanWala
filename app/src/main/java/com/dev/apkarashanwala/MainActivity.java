@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 import com.dev.apkarashanwala.prodcutscategory.ProductList;
+import com.dev.apkarashanwala.prodcutscategory.SubCategory;
 import com.dev.apkarashanwala.usersession.UserSession;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
@@ -38,7 +39,6 @@ import com.webianks.easy_feedback.EasyFeedback;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSequenceFinish() {
                         session.setFirstTime(false);
-                        Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -414,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void productOpenActivity(View view){
         String tag = view.getTag().toString();
-        Intent intent = new Intent(MainActivity.this, ProductList.class);
+        Intent intent = new Intent(MainActivity.this, SubCategory.class);
         intent.putExtra("categoryId", tag);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

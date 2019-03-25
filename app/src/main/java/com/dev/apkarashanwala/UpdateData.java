@@ -47,7 +47,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
 
 public class UpdateData extends AppCompatActivity {
 
@@ -161,7 +160,7 @@ public class UpdateData extends AppCompatActivity {
                             progressDialog.dismiss();
                             try {
                                 if (new JSONObject(response).getBoolean("success")) {
-                                    Toasty.success(UpdateData.this, "Updated Succesfully", Toast.LENGTH_LONG, true).show();
+                                    Toast.makeText(UpdateData.this, "Updated Succesfully", Toast.LENGTH_LONG).show();
 
                                     session.createLoginSession(name,newemail,mobile,photo,session.getUserDetails().get(UserSession.KEY_USERID),"-1");
 
@@ -169,7 +168,7 @@ public class UpdateData extends AppCompatActivity {
                                     startActivity(registersuccess);
                                     finish();
                                 } else {
-                                    Toasty.error(UpdateData.this, "User is not registered", Toast.LENGTH_LONG, true).show();
+                                    Toast.makeText(UpdateData.this, "User is not registered", Toast.LENGTH_LONG).show();
                                 }
                             }catch (JSONException e) {
                                 e.printStackTrace();
@@ -180,7 +179,7 @@ public class UpdateData extends AppCompatActivity {
                     });
                     requestQueue.add(updateRequest);
                 }else{
-                    Toasty.warning(UpdateData.this,"Incorrect Details Entered",Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateData.this,"Incorrect Details Entered",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -233,10 +232,10 @@ public class UpdateData extends AppCompatActivity {
                 progressDialog.dismiss();
                 try {
                     if (new JSONObject(response).getBoolean("success")) {
-                        Toasty.success(UpdateData.this, "Updated Succesfully", Toast.LENGTH_SHORT, true).show();
+                        Toast.makeText(UpdateData.this, "Updated Succesfully", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toasty.error(UpdateData.this, "User not registered", Toast.LENGTH_SHORT, true).show();
+                        Toast.makeText(UpdateData.this, "User not registered", Toast.LENGTH_SHORT).show();
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();

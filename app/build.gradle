@@ -56,14 +56,13 @@ dependencies {
 
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
-    implementation 'com.github.GrenderG:Toasty:1.2.5'
 
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
 //    implementation('com.mikepenz:aboutlibraries:6.0.1@aar') {
 //        transitive = true
 //    }
-    implementation("com.mikepenz:materialdrawer:6.0.2@aar") {
+    implementation("com.mikepenz:materialdrawer:6.0.6@aar") {
         transitive = true
     }
     implementation 'com.squareup.picasso:picasso:2.3.2'
@@ -101,7 +100,6 @@ dependencies {
 
     //Stylish edittextbox
     implementation 'com.github.florent37:materialtextfield:1.0.7'
-
 
     //ticker textview
     implementation 'com.tomer:fadingtextview:2.5'

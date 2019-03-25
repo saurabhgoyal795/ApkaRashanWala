@@ -52,10 +52,11 @@ public class ProductsDownloadService extends IntentService {
                     news.productDescription=dataArray.getJSONObject(i).getString("description");
                     news.productMrp=dataArray.getJSONObject(i).optString("mrp");
                     news.productImage=dataArray.getJSONObject(i).getString("image");
+                    news.subcat = dataArray.getJSONObject(i).optInt("subcat");
                     ProductItemDB.add(null,news);
                 }
 
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(ProductList.Product_LIST_REFRESH));
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent(SubCategory.Product_LIST_REFRESH));
 
             } catch (JSONException e) {
                 e.printStackTrace();

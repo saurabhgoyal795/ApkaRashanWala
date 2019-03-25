@@ -22,6 +22,7 @@ public class ProductItemDB implements Parcelable {
         private static final String TABLE_NAME = "ProductItemDB";
         public int productId;
         public int categoryId;
+        public int subcat = 0;
         public String productImage;
         public String productTitle;
         public String productDescription;
@@ -35,12 +36,14 @@ public class ProductItemDB implements Parcelable {
         private static final String COL_PRODUCT_DESCRIPTION= "sDescription";
         private static final String COL_PRODUCT_PRICE= "sPrice";
         private static final String COL_PRODUCT_MRP= "sMrp";
+        private static final String COL_SUBCATEGORY_ID = "sSub";
 
-        public ProductItemDB() {
+
+    public ProductItemDB() {
 
         }
 
-        public ProductItemDB(int productId,int categoryId,String productImage, String productTitle, String productDescription, String productPrice,String productMrp) {
+        public ProductItemDB(int productId,int categoryId,String productImage, String productTitle, String productDescription, String productPrice,String productMrp,int subcat) {
             this.productId=productId;
             this.categoryId=categoryId;
             this.productImage=productImage;
@@ -48,6 +51,7 @@ public class ProductItemDB implements Parcelable {
             this.productDescription=productDescription;
             this.productPrice=productPrice;
             this.productMrp=productMrp;
+            this.subcat = subcat;
         }
 
 
@@ -59,6 +63,7 @@ public class ProductItemDB implements Parcelable {
             productDescription=in.readString();
             productPrice=in.readString();
             productMrp=in.readString();
+            subcat = in.readInt();
         }
 
         @Override
@@ -75,6 +80,7 @@ public class ProductItemDB implements Parcelable {
             dest.writeString(productDescription);
             dest.writeString(productPrice);
             dest.writeString(productMrp);
+            dest.writeInt(subcat);
         }
 
         @Override
@@ -88,6 +94,7 @@ public class ProductItemDB implements Parcelable {
                 json.put(COL_PRODUCT_DESCRIPTION, productDescription);
                 json.put(COL_PRODUCT_PRICE, productPrice);
                 json.put(COL_PRODUCT_MRP, productMrp);
+                json.put(COL_SUBCATEGORY_ID,subcat);
 
             } catch(JSONException e) {
                 if(CommonUtility.isDebugModeOn) {
@@ -106,6 +113,7 @@ public class ProductItemDB implements Parcelable {
             values.put(COL_PRODUCT_DESCRIPTION, productDescription);
             values.put(COL_PRODUCT_PRICE, productPrice);
             values.put(COL_PRODUCT_MRP, productMrp);
+            values.put(COL_SUBCATEGORY_ID,subcat);
             return values;
         }
 
@@ -116,7 +124,8 @@ public class ProductItemDB implements Parcelable {
                 + COL_PRODUCT_TITLE + " TEXT,"
                 + COL_PRODUCT_DESCRIPTION + " TEXT,"
                 + COL_PRODUCT_PRICE + " TEXT,"
-                + COL_PRODUCT_MRP + " TEXT)";
+                + COL_PRODUCT_MRP + " TEXT,"
+                + COL_SUBCATEGORY_ID + " INTEGER)";
 
         public static void onCreate(SQLiteDatabase db) {
             db.execSQL(QUERY_CREATE_TABLE);
@@ -124,9 +133,9 @@ public class ProductItemDB implements Parcelable {
 
         public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try {
-//                if(oldVersion <= 75){
+                if(oldVersion > 1){
                 onCreate(db);
-//                }
+               }
             } catch(Throwable e) {
                 if(CommonUtility.isDebugModeOn) {
                     CommonUtility.printStackTrace(e);
@@ -174,7 +183,8 @@ public class ProductItemDB implements Parcelable {
                             cursor.getString(cursor.getColumnIndex(COL_PRODUCT_TITLE)),
                             cursor.getString(cursor.getColumnIndex(COL_PRODUCT_DESCRIPTION)),
                             cursor.getString(cursor.getColumnIndex(COL_PRODUCT_PRICE)),
-                            cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)));
+                            cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)),
+                            cursor.getInt(cursor.getColumnIndex(COL_SUBCATEGORY_ID)));
                 }
             } finally {
                 cursor.close();
@@ -205,7 +215,8 @@ public class ProductItemDB implements Parcelable {
                                 cursor.getString(cursor.getColumnIndex(COL_PRODUCT_TITLE)),
                                 cursor.getString(cursor.getColumnIndex(COL_PRODUCT_DESCRIPTION)),
                                 cursor.getString(cursor.getColumnIndex(COL_PRODUCT_PRICE)),
-                                cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)));
+                                cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)),
+                                cursor.getInt(cursor.getColumnIndex(COL_SUBCATEGORY_ID)));
                         productList.add(product);
                     } while(cursor.moveToNext());
                 }

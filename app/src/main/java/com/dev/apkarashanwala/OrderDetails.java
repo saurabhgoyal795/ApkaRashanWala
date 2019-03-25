@@ -134,7 +134,7 @@ public class OrderDetails extends AppCompatActivity {
 
     public void PlaceOrder(View view) {
         placeorderButton.setClickable(false);
-
+        placeorderButton.setEnabled(false);
         if (validateFields(view)) {
             final KProgressHUD progressDialog=  KProgressHUD.create(OrderDetails.this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -157,6 +157,7 @@ public class OrderDetails extends AppCompatActivity {
             if (jsonArray.length()<= 0){
                 progressDialog.dismiss();
                 placeorderButton.setClickable(true);
+                placeorderButton.setEnabled(true);
                 Toast.makeText(getApplicationContext(),"Please Add More Items",Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -176,6 +177,7 @@ public class OrderDetails extends AppCompatActivity {
 
                         } else {
                             placeorderButton.setClickable(true);
+                            placeorderButton.setEnabled(true);
                             if(jsonObject.has("error"))
                                 Toast.makeText(OrderDetails.this, jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                             else{
@@ -192,6 +194,7 @@ public class OrderDetails extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     progressDialog.dismiss();
                     placeorderButton.setClickable(true);
+                    placeorderButton.setEnabled(true);
                     if (error instanceof ServerError)
                         Toast.makeText(OrderDetails.this, "Server Error", Toast.LENGTH_SHORT).show();
                     else if (error instanceof TimeoutError)

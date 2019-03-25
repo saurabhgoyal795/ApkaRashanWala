@@ -44,7 +44,6 @@ import java.io.InputStream;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
 
 public class Register extends AppCompatActivity {
 
@@ -135,7 +134,7 @@ public class Register extends AppCompatActivity {
                             try {
                                 if (new JSONObject(response).getJSONObject("response").has("success")) {
 
-                                    Toasty.success(Register.this,"Registered Succesfully ",Toast.LENGTH_SHORT,true).show();
+                                    Toast.makeText(Register.this,"Registered Succesfully ",Toast.LENGTH_SHORT).show();
 
 //                                    sendRegistrationEmail(name,email);
                                     session.createLoginSession(name,email,mobile, "logo.jpg",new JSONObject(response).getJSONObject("response").getString("success"),refIdValue);
@@ -147,10 +146,10 @@ public class Register extends AppCompatActivity {
                                     finish();
 
                                 } else
-                                    Toasty.error(Register.this,"User Already Exist",Toast.LENGTH_SHORT,true).show();
+                                    Toast.makeText(Register.this,"User Already Exist",Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
+                                Toast.makeText(Register.this,"Failed to Register",Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -271,7 +270,7 @@ public class Register extends AppCompatActivity {
 
     private boolean validateProfile() {
         if (!IMAGE_STATUS)
-            Toasty.info(Register.this,"Select A Profile Picture",Toast.LENGTH_LONG).show();
+            Toast.makeText(Register.this,"Select A Profile Picture",Toast.LENGTH_LONG).show();
         return IMAGE_STATUS;
     }
 
