@@ -133,9 +133,11 @@ public class ProductItemDB implements Parcelable {
 
         public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try {
-                if(oldVersion > 1){
-                onCreate(db);
-               }
+
+                if (oldVersion < 3) {
+                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+                    onCreate(db);
+                }
             } catch(Throwable e) {
                 if(CommonUtility.isDebugModeOn) {
                     CommonUtility.printStackTrace(e);

@@ -66,6 +66,7 @@ public class OrderDetails extends AppCompatActivity {
     private String currdatetime;
     public static final String ORDERTAG = "MyTag";
     private RequestQueue requestQueue;
+    String totalAmounValue ="";
 
 
     @Override
@@ -133,6 +134,24 @@ public class OrderDetails extends AppCompatActivity {
     }
 
     public void PlaceOrder(View view) {
+        try {
+            if (Integer.parseInt(totalAmount.getText().toString().trim()) < 998) {
+                Toast.makeText(getApplicationContext(), "Minimum order value should be more than 999. Please add more item", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }catch (Exception e){
+            try {
+                if (Float.parseFloat(totalAmount.getText().toString().trim()) < 998) {
+                    Toast.makeText(getApplicationContext(), "Minimum order value should be more than 999. Please add more item", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            } catch (Exception ex){
+                if (Double.parseDouble(totalAmount.getText().toString().trim()) < 998) {
+                    Toast.makeText(getApplicationContext(), "Minimum order value should be more than 999. Please add more item", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
         placeorderButton.setClickable(false);
         placeorderButton.setEnabled(false);
         if (validateFields(view)) {
@@ -171,10 +190,11 @@ public class OrderDetails extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.has("success")) {
+                            session.setShowOffer();
                             JSONObject successObject = jsonObject.getJSONObject("success");
                             order_reference_id = successObject.getString("payid");
+                            totalAmounValue = totalAmount.getText().toString();
                             new DeleteCart().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,order_reference_id);
-
                         } else {
                             placeorderButton.setClickable(true);
                             placeorderButton.setEnabled(true);
@@ -206,6 +226,9 @@ public class OrderDetails extends AppCompatActivity {
             orderDetailsRequest.setTag(ORDERTAG);
             requestQueue.add(orderDetailsRequest);
 
+        } else {
+            placeorderButton.setClickable(false);
+            placeorderButton.setEnabled(false);
         }
     }
 
@@ -217,7 +240,7 @@ public class OrderDetails extends AppCompatActivity {
             CartItemDB.deleteCart();
             OrderDB item=new OrderDB();
             item.orderId = Integer.valueOf(order_reference_id);
-            item.total=totalAmount.getText().toString();
+            item.total=totalAmounValue;
             item.date=currdatetime;
             OrderDB.add(null,item);
             return true;

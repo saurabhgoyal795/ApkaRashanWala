@@ -162,7 +162,7 @@ public class UpdateData extends AppCompatActivity {
                                 if (new JSONObject(response).getBoolean("success")) {
                                     Toast.makeText(UpdateData.this, "Updated Succesfully", Toast.LENGTH_LONG).show();
 
-                                    session.createLoginSession(name,newemail,mobile,photo,session.getUserDetails().get(UserSession.KEY_USERID),"-1");
+                                    session.createLoginSession(name,newemail,mobile,photo,session.getUserDetails().get(UserSession.KEY_USERID),"-1",session.getUserDetails().get(UserSession.TO_SHOW_OFFER));
 
                                     Intent registersuccess = new Intent(UpdateData.this, Profile.class);
                                     startActivity(registersuccess);

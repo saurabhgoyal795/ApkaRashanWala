@@ -60,6 +60,8 @@ public class UserSession {
 
     // check first time app launch
     public static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    public static final String TO_SHOW_OFFER = "ToShowOffer";
+
 
     // Constructor
     public UserSession(Context context){
@@ -71,7 +73,7 @@ public class UserSession {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String email, String mobile, String photo,String userId,String refId){
+    public void createLoginSession(String name, String email, String mobile, String photo,String userId,String refId, String toShowOffer){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -91,6 +93,7 @@ public class UserSession {
         editor.putString(KEY_PHOTO, photo);
 
         editor.putString(KEY_USERID, userId);
+        editor.putString(TO_SHOW_OFFER, toShowOffer);
 
 
         // commit changes
@@ -141,6 +144,7 @@ public class UserSession {
         user.put(KEY_PHOTO, pref.getString(KEY_PHOTO, null)) ;
 
         user.put(KEY_USERID, pref.getString(KEY_USERID, null));
+        user.put(TO_SHOW_OFFER, pref.getString(TO_SHOW_OFFER, "yes"));
 
         // return user
         return user;
@@ -197,6 +201,12 @@ public class UserSession {
         editor.putInt(KEY_CART,val);
         editor.commit();
         Log.e("Cart Value PE", "Var value : "+val+"Cart Value :"+getCartValue()+" ");
+    }
+
+
+    public void setShowOffer(){
+        editor.putString(TO_SHOW_OFFER,"no");
+        editor.commit();
     }
 
     public void increaseWishlistValue(){

@@ -12,6 +12,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private String name, email, photo, mobile;
     private String first_time;
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+    LinearLayout firstOrder ;
+    LinearLayout clickActivity;
+    Button firstShoppingButton;
     Intent mIntent;
 
 
@@ -64,8 +69,31 @@ public class MainActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
-
+        firstOrder = findViewById(R.id.firstOrder);
+        clickActivity = findViewById(R.id.clickActivity);
+        firstShoppingButton =findViewById(R.id.firstShoppingButton);
         new CheckInternetConnection(this).checkConnection();
+        session = new UserSession(getApplicationContext());
+
+
+        firstOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firstOrder.setVisibility(View.GONE);
+            }
+        });
+        clickActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firstOrder.setVisibility(View.VISIBLE);
+            }
+        });
+        firstShoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firstOrder.setVisibility(View.GONE);
+            }
+        });
 
         getValues();
         inflateNavDrawer();
@@ -74,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
         if (session.getFirstTime()) {
             tapview();
             session.setFirstTime(false);
+        } else {
+            if(session.getUserDetails().get(UserSession.TO_SHOW_OFFER).trim().equalsIgnoreCase("yes")){
+                firstOrder.setVisibility(View.VISIBLE);
+            } else {
+                firstOrder.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -121,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onSequenceFinish() {
                         session.setFirstTime(false);
                         Toast.makeText(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
+                        if(session.getUserDetails().get(UserSession.TO_SHOW_OFFER).trim().equalsIgnoreCase("yes")){
+                            firstOrder.setVisibility(View.VISIBLE);
+                        } else {
+                            firstOrder.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override

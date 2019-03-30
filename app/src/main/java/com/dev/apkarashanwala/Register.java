@@ -137,7 +137,7 @@ public class Register extends AppCompatActivity {
                                     Toast.makeText(Register.this,"Registered Succesfully ",Toast.LENGTH_SHORT).show();
 
 //                                    sendRegistrationEmail(name,email);
-                                    session.createLoginSession(name,email,mobile, "logo.jpg",new JSONObject(response).getJSONObject("response").getString("success"),refIdValue);
+                                    session.createLoginSession(name,email,mobile, "logo.jpg",new JSONObject(response).getJSONObject("response").getString("success"),refIdValue,"yes");
 
                                     //count value of firebase cart and wishlist
 

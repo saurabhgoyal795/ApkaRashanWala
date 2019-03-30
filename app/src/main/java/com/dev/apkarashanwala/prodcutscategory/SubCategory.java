@@ -191,6 +191,25 @@ public class SubCategory extends AppCompatActivity {
         protected void onPostExecute(Boolean aBoolean) {
             tv_no_item.setVisibility(View.GONE);
             if (!isFetchedSubCat && CommonUtility.isConnectedToInternet(getApplicationContext())) {
+                if(subCategoryList.size() > 0 && productList.size()>0) {
+                    categoryImage.setVisibility(View.VISIBLE);
+                    ArrayList<SubCategoryItemDB> temp = new ArrayList<>();
+                    for (int p = 0; p<subCategoryList.size();p++){
+                        for(int k =0; k<productList.size();k++){
+                            if(subCategoryList.get(p).subcatId == productList.get(k).subcat ){
+                                temp.add(subCategoryList.get(p));
+                                Log.d("Saurabh", "item "+ productList.get(k));
+                                break;
+                            }
+                        }
+                    }
+                    if(adapter2 == null) {
+                        adapter2 = new SubCategoryItemAdataper(temp,R.layout.subcatlist,getApplicationContext(),productList);
+                        mRecyclerView2.setAdapter(adapter2);
+                    }else{
+                        adapter2.refreshAdapter(temp);
+                    }
+                }
                 getApplicationContext().startService(new Intent(getApplicationContext(),SubCategoryDownloadService.class).putExtra("categoryId", String.valueOf(categoryId)));
             } else {
                     if(subCategoryList.size()==0 ) {

@@ -488,4 +488,56 @@
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#33000000"
+        android:gravity="center"
+        android:id="@+id/firstOrder"
+        android:visibility="gone"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/clickActivity"
+            android:gravity="center"
+            android:background="#ffffff">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FREE ON FIRST ORDER"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:alpha="0.72"
+                android:visibility="gone"
+                android:textStyle="bold"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:src="@drawable/chandi"
+                android:scaleType="centerInside"
+                android:layout_margin="16dp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="START SHOPPING"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_margin="16dp"
+                android:id="@+id/firstShoppingButton"
+                android:background="@android:color/holo_green_light"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>
