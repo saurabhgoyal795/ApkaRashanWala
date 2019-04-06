@@ -196,6 +196,7 @@ public class OrderDetails extends AppCompatActivity {
                             totalAmounValue = totalAmount.getText().toString();
                             new DeleteCart().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,order_reference_id);
                         } else {
+                            progressDialog.dismiss();
                             placeorderButton.setClickable(true);
                             placeorderButton.setEnabled(true);
                             if(jsonObject.has("error"))
@@ -206,7 +207,10 @@ public class OrderDetails extends AppCompatActivity {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(OrderDetails.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        placeorderButton.setClickable(true);
+                        placeorderButton.setEnabled(true);
+                        Toast.makeText(OrderDetails.this, "Please Try Again", Toast.LENGTH_SHORT).show();
                     }
                 }
             }, new Response.ErrorListener() {

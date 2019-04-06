@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -38,6 +39,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.webianks.easy_feedback.EasyFeedback;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout clickActivity;
     Button firstShoppingButton;
     Intent mIntent;
+    FloatingActionButton fab;
 
 
     @Override
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         firstOrder = findViewById(R.id.firstOrder);
         clickActivity = findViewById(R.id.clickActivity);
         firstShoppingButton =findViewById(R.id.firstShoppingButton);
+        fab = findViewById(R.id.fab);
         new CheckInternetConnection(this).checkConnection();
         session = new UserSession(getApplicationContext());
 
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 firstOrder.setVisibility(View.GONE);
+                fab.setVisibility(View.VISIBLE);
             }
         });
         clickActivity.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 firstOrder.setVisibility(View.GONE);
+                fab.setVisibility(View.VISIBLE);
             }
         });
 
@@ -107,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 firstOrder.setVisibility(View.VISIBLE);
             } else {
                 firstOrder.setVisibility(View.GONE);
+                fab.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -159,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             firstOrder.setVisibility(View.VISIBLE);
                         } else {
                             firstOrder.setVisibility(View.GONE);
+                            fab.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -458,5 +466,24 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+    public void openWhatsApp(View view){
+        String phone = "+919950257451";
+        String message = "कृपया हमें अपने order की फोटो भेजें";
+        PackageManager packageManager = getPackageManager();
+        Intent i = new Intent(Intent.ACTION_VIEW);
+
+        try {
+            String url = "https://api.whatsapp.com/send?phone="+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
+            i.setPackage("com.whatsapp");
+            i.setData(Uri.parse(url));
+            if (i.resolveActivity(packageManager) != null) {
+                startActivity(i);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }
