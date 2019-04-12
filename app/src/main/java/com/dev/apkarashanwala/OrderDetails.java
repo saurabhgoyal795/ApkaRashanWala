@@ -231,8 +231,8 @@ public class OrderDetails extends AppCompatActivity {
             requestQueue.add(orderDetailsRequest);
 
         } else {
-            placeorderButton.setClickable(false);
-            placeorderButton.setEnabled(false);
+            placeorderButton.setClickable(true);
+            placeorderButton.setEnabled(true);
         }
     }
 
