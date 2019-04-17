@@ -194,7 +194,15 @@ public class OrderDetails extends AppCompatActivity {
                             JSONObject successObject = jsonObject.getJSONObject("success");
                             order_reference_id = successObject.getString("payid");
                             totalAmounValue = totalAmount.getText().toString();
-                            new DeleteCart().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,order_reference_id);
+                            try {
+                                new DeleteCart().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, order_reference_id);
+                            }catch (Exception e ){
+                                session.setCartValue(0);
+                                Intent intent = new Intent(OrderDetails.this, OrderPlaced.class);
+                                intent.putExtra("orderid",order_reference_id);
+                                startActivity(intent);
+                                finish();
+                            }
                         } else {
                             progressDialog.dismiss();
                             placeorderButton.setClickable(true);
@@ -241,12 +249,27 @@ public class OrderDetails extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            CartItemDB.deleteCart();
             OrderDB item=new OrderDB();
             item.orderId = Integer.valueOf(order_reference_id);
             item.total=totalAmounValue;
             item.date=currdatetime;
+            JSONArray jsonArray = new JSONArray();
+            for (int i= 0 ; i<cartcollect.size();i++){
+                CartItemDB cartItemDB = cartcollect.get(i);
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("quantity",cartItemDB.quantity);
+                    jsonObject.put("productImage",cartItemDB.productImage);
+                    jsonObject.put("productTitle",cartItemDB.productTitle);
+                    jsonObject.put("productPrice",cartItemDB.productPrice);
+                    jsonArray.put(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            item.data = jsonArray.toString();
             OrderDB.add(null,item);
+            CartItemDB.deleteCart();
             return true;
         }
 

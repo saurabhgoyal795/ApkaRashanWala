@@ -28,6 +28,9 @@ import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.materialdrawer.Drawer;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -246,12 +249,14 @@ public class Profile extends AppCompatActivity {
             TextView date;
             TextView transactionId;
             TextView amount;
+            LinearLayout layout_item_desc;
 
             public NewsViewHolder(View v) {
                 super(v);
                 date = v.findViewById(R.id.date);
                 transactionId = v.findViewById(R.id.transactionId);
                 amount = v.findViewById(R.id.amount);
+                layout_item_desc = v.findViewById(R.id.layout_item_desc);
             }
         }
 
@@ -276,6 +281,30 @@ public class Profile extends AppCompatActivity {
             holder.date.setText("DATE: "+newsItems.get(position).date);
             holder.transactionId.setText("Transaction ID: #"+newsItems.get(position).orderId);
             holder.amount.setText("₹ "+newsItems.get(position).total);
+            final ArrayList<CartItemDB> cartItemDBArrayList = new ArrayList<>();
+            try{
+                JSONArray json = new JSONArray(newsItems.get(position).data);
+                for(int p =0 ; p<json.length();p++){
+                  JSONObject jsonObject = json.getJSONObject(p);
+                  CartItemDB cartItemDB = new CartItemDB();
+                  cartItemDB.productTitle = jsonObject.getString("productTitle");
+                  cartItemDB.quantity = jsonObject.getInt("quantity");
+                  cartItemDB.productImage = jsonObject.getString("productImage");
+                  cartItemDB.productPrice = jsonObject.getString("productPrice");
+                  cartItemDBArrayList.add(cartItemDB);
+                }
+            } catch (Exception e){
+
+            }
+            holder.layout_item_desc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Profile.this, PreviousOrderDetailsActivity.class);
+                    intent.putExtra("cartproducts", cartItemDBArrayList);
+                    startActivity(intent);
+                }
+            });
+
         }
 
         @Override
