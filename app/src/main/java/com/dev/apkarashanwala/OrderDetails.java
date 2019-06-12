@@ -135,19 +135,19 @@ public class OrderDetails extends AppCompatActivity {
 
     public void PlaceOrder(View view) {
         try {
-            if (Integer.parseInt(totalAmount.getText().toString().trim()) < 998) {
-                Toast.makeText(getApplicationContext(), "Minimum order value should be more than 999. Please add more item", Toast.LENGTH_LONG).show();
+            if (Integer.parseInt(totalAmount.getText().toString().trim()) < 499) {
+                Toast.makeText(getApplicationContext(), "Minimum order value should be more than 500. Please add more item", Toast.LENGTH_LONG).show();
                 return;
             }
         }catch (Exception e){
             try {
-                if (Float.parseFloat(totalAmount.getText().toString().trim()) < 998) {
-                    Toast.makeText(getApplicationContext(), "Minimum order value should be more than 999. Please add more item", Toast.LENGTH_LONG).show();
+                if (Float.parseFloat(totalAmount.getText().toString().trim()) < 499) {
+                    Toast.makeText(getApplicationContext(), "Minimum order value should be more than 500. Please add more item", Toast.LENGTH_LONG).show();
                     return;
                 }
             } catch (Exception ex){
-                if (Double.parseDouble(totalAmount.getText().toString().trim()) < 998) {
-                    Toast.makeText(getApplicationContext(), "Minimum order value should be more than 999. Please add more item", Toast.LENGTH_LONG).show();
+                if (Double.parseDouble(totalAmount.getText().toString().trim()) < 499) {
+                    Toast.makeText(getApplicationContext(), "Minimum order value should be more than 500. Please add more item", Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -181,7 +181,7 @@ public class OrderDetails extends AppCompatActivity {
                 return;
             }
 
-            OrderDetailsRequest orderDetailsRequest = new OrderDetailsRequest(ordername.getText().toString(), orderaddress.getText().toString(),ordernumber.getText().toString(),user.get(UserSession.KEY_USERID),user.get(UserSession.KEY_EMAIL),orderpincode.getText().toString(),jsonArray.toString(),user.get(UserSession.KEY_REFID),totalAmount.getText().toString(), new Response.Listener<String>() {
+            OrderDetailsRequest orderDetailsRequest = new OrderDetailsRequest(ordername.getText().toString(), orderaddress.getText().toString(),ordernumber.getText().toString(),user.get(UserSession.KEY_USERID),user.get(UserSession.KEY_EMAIL),orderpincode.getText().toString(),jsonArray.toString(),user.get(UserSession.KEY_REFID),totalAmount.getText().toString().trim(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
@@ -190,7 +190,23 @@ public class OrderDetails extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.has("success")) {
-                            session.setShowOffer();
+                            try {
+                                if (Integer.parseInt(totalAmount.getText().toString().trim()) > 1999) {
+                                    session.setShowOffer();
+                                }
+                            }catch (Exception e){
+                                try {
+                                    if (Float.parseFloat(totalAmount.getText().toString().trim()) > 1999) {
+                                        session.setShowOffer();
+
+                                    }
+                                } catch (Exception ex){
+                                    if (Double.parseDouble(totalAmount.getText().toString().trim()) > 1999) {
+                                        session.setShowOffer();
+                                    }
+                                }
+                            }
+
                             JSONObject successObject = jsonObject.getJSONObject("success");
                             order_reference_id = successObject.getString("payid");
                             totalAmounValue = totalAmount.getText().toString();
