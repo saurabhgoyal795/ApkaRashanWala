@@ -100,7 +100,7 @@ public class ProductList extends AppCompatActivity {
             mRecyclerView.setHasFixedSize(true);
         }
         //using staggered grid pattern in recyclerview
-        mLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+        mLayoutManager = new GridLayoutManager(getApplicationContext(),1);
         mRecyclerView.setLayoutManager(mLayoutManager);
         if (mRecyclerView2 != null) {
             //to enable optimization of recyclerview

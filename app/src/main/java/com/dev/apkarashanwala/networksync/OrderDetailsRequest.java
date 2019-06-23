@@ -4,6 +4,8 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,10 @@ public class OrderDetailsRequest extends StringRequest {
         parameters.put("details", details);
         parameters.put("referenceId",refId);
         parameters.put("totalAmount",totalAmount);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+        String time = sdf.format(new Date());
+        parameters.put("dateTime",time);
+
     }
 
     @Override
