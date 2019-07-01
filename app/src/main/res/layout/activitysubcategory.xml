@@ -148,5 +148,19 @@
             android:layout_width="match_parent"/>
 
     </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proceed To Checkout"
+        android:id="@+id/checkoutButton"
+        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/gen_white"
+        android:background="@color/md_orange_300"/>
 
 </RelativeLayout>

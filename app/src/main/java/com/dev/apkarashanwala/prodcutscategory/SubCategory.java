@@ -13,6 +13,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
@@ -31,10 +34,12 @@ import com.dev.apkarashanwala.Cart;
 import com.dev.apkarashanwala.IndividualProduct;
 import com.dev.apkarashanwala.R;
 import com.dev.apkarashanwala.Utility.CommonUtility;
+import com.dev.apkarashanwala.db.CartItemDB;
 import com.dev.apkarashanwala.db.ProductItemDB;
 import com.dev.apkarashanwala.db.SubCategoryItemDB;
 import com.dev.apkarashanwala.init.CustomApplication;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
+import com.dev.apkarashanwala.usersession.UserSession;
 
 import java.util.ArrayList;
 
@@ -120,6 +125,13 @@ public class SubCategory extends AppCompatActivity {
         search_button = findViewById(R.id.search_button);
         searchEdittext = findViewById(R.id.searchEdittext);
         categoryImage = findViewById(R.id.categoryImage);
+        findViewById(R.id.checkoutButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Cart.class));
+                finish();
+            }
+        });
         Glide.with(getApplicationContext()).load(CustomApplication.imagePath + categoryId+"_cat.jpg").placeholder(R.drawable.noimage).into(categoryImage);
 
         if (mRecyclerView != null) {
@@ -331,6 +343,8 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
     private ArrayList<ProductItemDB> newsItems;
     private int rowLayout;
     private Context context;
+    ProductItemDB productData;
+    private UserSession session;
 
     protected class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView cardname;
@@ -338,7 +352,12 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
         TextView cardprice;
         TextView cardprice2;
         CardView cardView;
-
+        Button buyButton;
+        EditText quantityProductPage;
+        Button decrement;
+        Button increment;
+        int quantity = 1;
+        AddToCart mAddToCartTask;
 
         public NewsViewHolder(View v) {
             super(v);
@@ -347,6 +366,11 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
             cardprice = v.findViewById(R.id.cardprice);
             cardprice2 = v.findViewById(R.id.cardprice2);
             cardView = v.findViewById(R.id.card_view);
+            buyButton = v.findViewById(R.id.buyButton);
+            quantityProductPage = v.findViewById(R.id.quantityProductPage);
+            decrement = v.findViewById(R.id.decrementQuantity);
+            increment = v.findViewById(R.id.incrementQuantity);
+
         }
     }
 
@@ -361,18 +385,80 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
     public ProductItemAdataper.NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+        session = new UserSession(context);
+
+        //validating session
+        session.isLoggedIn();
         return new ProductItemAdataper.NewsViewHolder(view);
 
     }
 
 
     @Override
-    public void onBindViewHolder(final ProductItemAdataper.NewsViewHolder holder, int position) {
+    public void onBindViewHolder(final ProductItemAdataper.NewsViewHolder holder, final int position) {
         holder.cardname.setText(newsItems.get(position).productTitle);
         holder.cardprice.setText("₹"+newsItems.get(position).productMrp);
-        holder.cardprice2.setText("Price: ₹"+newsItems.get(position).productPrice);
+        holder.cardprice2.setText("Our Price: ₹"+newsItems.get(position).productPrice);
         holder.cardprice.setPaintFlags(holder.cardprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(context).load(CustomApplication.imagePath +newsItems.get(position).productImage).placeholder(R.drawable.noimage).into(holder.cardimage);
+        holder.quantityProductPage.setText("1");
+
+        holder.buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.buyButton.setText("Add");
+                productData = newsItems.get(position);
+                holder.quantityProductPage.setVisibility(View.VISIBLE);
+                holder.decrement.setVisibility(View.VISIBLE);
+                holder.increment.setVisibility(View.VISIBLE);
+                if(holder.mAddToCartTask != null){
+                    holder.mAddToCartTask.cancel(true);
+                }
+                holder.mAddToCartTask = new AddToCart();
+                holder.mAddToCartTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,holder.quantity);
+
+            }
+        });
+        holder.decrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.quantity > 1) {
+                    holder.quantity--;
+                    holder.quantityProductPage.setText(String.valueOf(holder.quantity));
+                }
+
+            }
+        });
+
+        holder.increment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.quantity++;
+                holder.quantityProductPage.setText(String.valueOf(holder.quantity));
+
+            }
+        });
+//        TextWatcher productcount = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                //none
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (holder.quantityProductPage.getText().toString().equals("")) {
+//                    holder.quantityProductPage.setText("0");
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                //none
+//
+//            }
+//
+//        };
+//        holder.quantityProductPage.addTextChangedListener(productcount);
 
         CardView RLContainer = holder.cardView;
 
@@ -393,6 +479,31 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
 
 
     }
+
+    class AddToCart extends AsyncTask<Integer, Void , Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... ints) {
+            CartItemDB item=new CartItemDB();
+            item.productId=productData.productId;
+            item.categoryId=productData.categoryId;
+            item.productTitle=productData.productTitle;
+            item.productPrice=productData.productPrice;
+            item.productDescription=productData.productDescription;
+            item.productMrp=productData.productMrp;
+            item.productImage=productData.productImage;
+            item.quantity = ints[0];
+            CartItemDB.add(null,item);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean s) {
+            session.increaseCartValue();
+            Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public int getItemCount() {

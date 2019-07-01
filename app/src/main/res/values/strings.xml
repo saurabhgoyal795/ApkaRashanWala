@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ApkaRashanWala</string>
-
+    <string name="facebook_app_id">1234892956681806</string>
+    <string name="fb_login_protocol_scheme">fb1234892956681806</string>
     <string name="title_activity_registration">Registration</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

@@ -153,6 +153,10 @@ public class CartItemDB implements Parcelable {
         }
 
         boolean st = db.insert(TABLE_NAME, null, product.getValues()) != -1;
+        if (st == false) {
+            db.update(TABLE_NAME, product.getValues(), COL_PRODUCT_ID+"="+product.productId, null);
+
+        }
         Log.d("itemadded","st is "+st);
         return st;
     }
