@@ -16,7 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private Context mContext;
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     public static String DATABASE_NAME = "ARW";
     private static boolean mIsCreatingDB;
     private static boolean mIsReadingDB;

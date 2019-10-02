@@ -53,6 +53,11 @@ public class ProductsDownloadService extends IntentService {
                     news.productMrp=dataArray.getJSONObject(i).optString("mrp");
                     news.productImage=dataArray.getJSONObject(i).getString("image");
                     news.subcat = dataArray.getJSONObject(i).optInt("subcat");
+                    news.facebookUrl = dataArray.getJSONObject(i).optString("facebookUrl");
+                    news.instaUrl = dataArray.getJSONObject(i).optString("instaUrl");
+                    news.profileUrl = dataArray.getJSONObject(i).optString("profileLink");
+                    news.otherUrl = dataArray.getJSONObject(i).optString("anyotherLink");
+
                     ProductItemDB.add(null,news);
                 }
 

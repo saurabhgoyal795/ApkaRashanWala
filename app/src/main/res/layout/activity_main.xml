@@ -102,10 +102,157 @@
                 app:pager_animation="Default"
                 app:pager_animation_span="1100" />
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation= "5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+                <ImageView
+                    android:layout_height="120dp"
+                    android:layout_width="150dp"
+                    android:id="@+id/image1"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/groceryitem"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingRight="16dp"
+                    android:layout_toRightOf="@+id/image1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="ApkaRashanwala"
+                        android:textSize="20dp"
+                        android:singleLine="true"
+                        android:layout_gravity="left"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Purchase grocery items here"
+                        android:textSize="15dp"
+                        android:alpha="0.71"
+                        android:layout_gravity="left"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation= "5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <ImageView
+                        android:layout_height="120dp"
+                        android:layout_width="150dp"
+                        android:id="@+id/image3"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/sweets"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingRight="16dp"
+                        android:layout_toRightOf="@+id/image3">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="ApkaSweetWala"
+                            android:textSize="20dp"
+                            android:singleLine="true"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Purchase Sweet items here"
+                            android:textSize="15dp"
+                            android:alpha="0.71"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation= "5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:tag="61"
+                android:onClick="listOpenActivity"
+                android:layout_gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <ImageView
+                        android:layout_height="120dp"
+                        android:layout_width="150dp"
+                        android:id="@+id/image2"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/artist"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center"
+                        android:paddingRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/image2">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Artist"
+                            android:textSize="20dp"
+                            android:singleLine="true"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Select Celebrity from here"
+                            android:textSize="15dp"
+                            android:alpha="0.71"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:padding="10dp">
 
                 <LinearLayout

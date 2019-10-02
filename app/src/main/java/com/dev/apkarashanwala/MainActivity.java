@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 firstOrder.setVisibility(View.VISIBLE);
             } else {
                 firstOrder.setVisibility(View.GONE);
-                fab.setVisibility(View.VISIBLE);
+//                fab.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -143,19 +143,19 @@ public class MainActivity extends AppCompatActivity {
                                 .cancelable(false)// Whether tapping outside the outer circle dismisses the view
                                 .tintTarget(true)
                                 .transparentTarget(true)
-                                .outerCircleColor(R.color.second),
-                        TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
-                                .targetCircleColor(R.color.colorAccent)
-                                .titleTextColor(R.color.colorAccent)
-                                .titleTextSize(25)
-                                .descriptionTextSize(15)
-                                .descriptionTextColor(R.color.accent)
-                                .drawShadow(true)
-                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-                                .tintTarget(true)
-                                .transparentTarget(true)
-                                .outerCircleColor(R.color.fourth))
-                .listener(new TapTargetSequence.Listener() {
+                                .outerCircleColor(R.color.second)
+//                        TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
+//                                .targetCircleColor(R.color.colorAccent)
+//                                .titleTextColor(R.color.colorAccent)
+//                                .titleTextSize(25)
+//                                .descriptionTextSize(15)
+//                                .descriptionTextColor(R.color.accent)
+//                                .drawShadow(true)
+//                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+//                                .tintTarget(true)
+//                                .transparentTarget(true)
+//                                .outerCircleColor(R.color.fourth)
+                                ).listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards
                     // to the sequence
                     @Override
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             firstOrder.setVisibility(View.VISIBLE);
                         } else {
                             firstOrder.setVisibility(View.GONE);
-                            fab.setVisibility(View.VISIBLE);
+//                            fab.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -463,6 +463,13 @@ public class MainActivity extends AppCompatActivity {
         String tag = view.getTag().toString();
         Intent intent = new Intent(MainActivity.this, SubCategory.class);
         intent.putExtra("categoryId", tag);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void listOpenActivity(View view){
+        Intent intent = new Intent(MainActivity.this, SubCategory.class);
+        intent.putExtra("categoryId", "61");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

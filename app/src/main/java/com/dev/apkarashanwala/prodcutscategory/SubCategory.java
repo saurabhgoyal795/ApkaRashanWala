@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.dev.apkarashanwala.Cart;
+import com.dev.apkarashanwala.IndividualAtrtist;
 import com.dev.apkarashanwala.IndividualProduct;
 import com.dev.apkarashanwala.R;
 import com.dev.apkarashanwala.Utility.CommonUtility;
@@ -94,6 +95,7 @@ public class SubCategory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitysubcategory);
+        Log.d("Aaay", "fnf");
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if(extras !=  null){
@@ -216,7 +218,7 @@ public class SubCategory extends AppCompatActivity {
                         }
                     }
                     if(adapter2 == null) {
-                        adapter2 = new SubCategoryItemAdataper(temp,R.layout.subcatlist,getApplicationContext(),productList);
+                        adapter2 = new SubCategoryItemAdataper(temp,R.layout.subcatlist,getApplicationContext(),productList, categoryId);
                         mRecyclerView2.setAdapter(adapter2);
                     }else{
                         adapter2.refreshAdapter(temp);
@@ -229,8 +231,13 @@ public class SubCategory extends AppCompatActivity {
                         frameContainer.setVisibility(View.VISIBLE);
                         categoryImage.setVisibility(View.GONE);
                         if(adapter == null) {
-                            adapter = new ProductItemAdataper(productList,R.layout.product_list,getApplicationContext());
-                            mRecyclerView.setAdapter(adapter);
+                            if(categoryId == 61){
+                                adapter = new ProductItemAdataper(productList,R.layout.product_list_artist,getApplicationContext(),categoryId);
+                                mRecyclerView.setAdapter(adapter);
+                            } else {
+                                adapter = new ProductItemAdataper(productList,R.layout.product_list,getApplicationContext(),categoryId);
+                                mRecyclerView.setAdapter(adapter);
+                            }
                         }else{
                             adapter.refreshAdapter(productList);
                         }
@@ -249,7 +256,7 @@ public class SubCategory extends AppCompatActivity {
                             }
                         }
                         if(adapter2 == null) {
-                            adapter2 = new SubCategoryItemAdataper(temp,R.layout.subcatlist,getApplicationContext(),productList);
+                            adapter2 = new SubCategoryItemAdataper(temp,R.layout.subcatlist,getApplicationContext(),productList,categoryId);
                             mRecyclerView2.setAdapter(adapter2);
                         }else{
                             adapter2.refreshAdapter(temp);
@@ -345,6 +352,7 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
     private Context context;
     ProductItemDB productData;
     private UserSession session;
+    private int categoryId;
 
     protected class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView cardname;
@@ -358,6 +366,7 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
         Button increment;
         int quantity = 1;
         AddToCart mAddToCartTask;
+        TextView description;
 
         public NewsViewHolder(View v) {
             super(v);
@@ -370,14 +379,16 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
             quantityProductPage = v.findViewById(R.id.quantityProductPage);
             decrement = v.findViewById(R.id.decrementQuantity);
             increment = v.findViewById(R.id.incrementQuantity);
+            description = v.findViewById(R.id.description);
 
         }
     }
 
-    public ProductItemAdataper(ArrayList<ProductItemDB> news, int rowLayout, Context context) {
+    public ProductItemAdataper(ArrayList<ProductItemDB> news, int rowLayout, Context context, int categoryId) {
         this.newsItems = news;
         this.rowLayout = rowLayout;
         this.context = context;
+        this.categoryId = categoryId;
     }
 
 
@@ -402,6 +413,7 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
         holder.cardprice.setPaintFlags(holder.cardprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(context).load(CustomApplication.imagePath +newsItems.get(position).productImage).placeholder(R.drawable.noimage).into(holder.cardimage);
         holder.quantityProductPage.setText("1");
+        holder.description.setText(newsItems.get(position).productDescription);
 
         holder.buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -468,7 +480,12 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
         mClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, IndividualProduct.class);
+                Intent intent = null;
+                if(categoryId == 61){
+                    intent = new Intent(context, IndividualAtrtist.class);
+                } else {
+                    intent = new Intent(context, IndividualProduct.class);
+                }
                 intent.putExtra("product", newsItems.get(pos));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -528,6 +545,7 @@ class SubCategoryItemAdataper extends RecyclerView.Adapter<SubCategoryItemAdatap
     private int rowLayout;
     private Context context;
     private ArrayList<ProductItemDB> productList;
+    private int categoryId;
 
     protected class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView cardname;
@@ -543,11 +561,12 @@ class SubCategoryItemAdataper extends RecyclerView.Adapter<SubCategoryItemAdatap
         }
     }
 
-    public SubCategoryItemAdataper(ArrayList<SubCategoryItemDB> news, int rowLayout, Context context,ArrayList<ProductItemDB> productList) {
+    public SubCategoryItemAdataper(ArrayList<SubCategoryItemDB> news, int rowLayout, Context context,ArrayList<ProductItemDB> productList, int categoryId) {
         this.newsItems = news;
         this.rowLayout = rowLayout;
         this.context = context;
         this.productList = productList;
+        this.categoryId = categoryId;
     }
 
 
@@ -572,8 +591,12 @@ class SubCategoryItemAdataper extends RecyclerView.Adapter<SubCategoryItemAdatap
         mClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(context, ProductList.class);
+                Intent intent = null;
+                if(categoryId == 61){
+                     intent = new Intent(context, ProductListArtist.class);
+                } else {
+                     intent = new Intent(context, ProductList.class);
+                }
                 ArrayList<ProductItemDB> temp = new ArrayList<>();
                 for(int k= 0;k<productList.size();k++) {
                     if (productList.get(k).subcat == newsItems.get(pos).subcatId) {
