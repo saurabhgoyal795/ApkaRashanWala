@@ -25,6 +25,10 @@
             android:name=".prodcutscategory.SubCategory"
             android:label="@string/title_activity_sub_category"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainApkaRashanWalaActivity"
+            android:label="Category"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="android.support.VERSION"
@@ -57,6 +61,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/WhiteTheme" />
+
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"

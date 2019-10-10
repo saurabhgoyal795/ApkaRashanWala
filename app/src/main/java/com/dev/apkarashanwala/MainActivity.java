@@ -461,10 +461,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void productOpenActivity(View view){
         String tag = view.getTag().toString();
-        Intent intent = new Intent(MainActivity.this, SubCategory.class);
-        intent.putExtra("categoryId", tag);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (tag.equalsIgnoreCase("apkarashan")){
+            Intent intent = new Intent(MainActivity.this, MainApkaRashanWalaActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(MainActivity.this, SubCategory.class);
+            intent.putExtra("categoryId", tag);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
     }
 
     public void listOpenActivity(View view){

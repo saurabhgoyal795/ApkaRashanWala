@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 
 import com.dev.apkarashanwala.Utility.ServerInterface;
@@ -57,7 +58,23 @@ public class ProductsDownloadService extends IntentService {
                     news.instaUrl = dataArray.getJSONObject(i).optString("instaUrl");
                     news.profileUrl = dataArray.getJSONObject(i).optString("profileLink");
                     news.otherUrl = dataArray.getJSONObject(i).optString("anyotherLink");
-
+                    news.events = dataArray.getJSONObject(i).optString("events");
+                    if(dataArray.getJSONObject(i).has("morePhotos")){
+                        try{
+                            Log.d("MorePhoto", "productData.morePhoto"+dataArray.getJSONObject(i).optJSONArray("morePhotos"));
+                            news.morePhotos = dataArray.getJSONObject(i).optJSONArray("morePhotos").toString();
+                        } catch (Exception e){
+                            try {
+                                news.morePhotos = dataArray.getJSONObject(i).optString("morePhotos");
+                            } catch (Exception ex){
+                                news.morePhotos = "";
+                            }
+                        }
+                    }
+                    news.amountLocal = dataArray.getJSONObject(i).optString("amountLocal");
+                    news.amountOutSide = dataArray.getJSONObject(i).optString("amountOutside");
+                    news.location = dataArray.getJSONObject(i).optString("location");
+                    news.contactNumber = dataArray.getJSONObject(i).optString("contactNumber");
                     ProductItemDB.add(null,news);
                 }
 

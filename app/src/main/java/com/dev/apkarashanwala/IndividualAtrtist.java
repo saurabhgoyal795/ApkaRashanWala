@@ -3,6 +3,7 @@ package com.dev.apkarashanwala;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,11 +26,18 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.dev.apkarashanwala.db.CartItemDB;
 import com.dev.apkarashanwala.db.ProductItemDB;
 import com.dev.apkarashanwala.init.CustomApplication;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 import com.dev.apkarashanwala.usersession.UserSession;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,14 +50,34 @@ public class IndividualAtrtist extends AppCompatActivity {
     ImageView productimage;
     @BindView(R.id.productname)
     TextView productname;
-    @BindView(R.id.productprice)
-    TextView productprice;
+    @BindView(R.id.yearsofExperience)
+    TextView yearsofExperience;
     @BindView(R.id.add_to_cart)
     TextView addToCart;
     @BindView(R.id.productdesc)
     TextView productdesc;
     @BindView(R.id.quantityProductPage)
     EditText quantityProductPage;
+    @BindView(R.id.type)
+    TextView type;
+    @BindView(R.id.place)
+    TextView place;
+    @BindView(R.id.fblink)
+    TextView fblink;
+    @BindView(R.id.instaLink)
+    TextView instaLink;
+    @BindView(R.id.profileLink)
+    TextView profileLink;
+    @BindView(R.id.anyOtherLink)
+    TextView anyOtherLink;
+    @BindView(R.id.events)
+    TextView events;
+    @BindView(R.id.amountLocal)
+    TextView amountLocal;
+    @BindView(R.id.amountOutside)
+    TextView amountOutside;
+
+
     LottieAnimationView addToWishlist;
     private String usermobile, useremail;
     private int quantity = 1;
@@ -54,6 +86,7 @@ public class IndividualAtrtist extends AppCompatActivity {
     private AddToCartTask mAddToCartTask;
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE2 = 1;
     Intent mIntent;
+    private SliderLayout sliderShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +98,124 @@ public class IndividualAtrtist extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Bundle extras = getIntent().getExtras();
+        productData = extras.getParcelable("product");
+        toolbar.setTitle(productData.productTitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         initialize();
 
     }
 
     private void initialize() {
-        Bundle extras = getIntent().getExtras();
-        productData = extras.getParcelable("product");
+        yearsofExperience.setText("Years of Experience: " + productData.productPrice);
+        if(productData.productMrp.trim().equalsIgnoreCase("1")){
+            type.setText("SINGER");
+        } else if (productData.productMrp.trim().equalsIgnoreCase("2")){
+            type.setText("DANCER");
+        }else {
+            type.setText("ARTIST");
+        }
+        place.setText("Place: "+ productData.location);
+        if(productData.instaUrl != null && !productData.instaUrl.trim().equalsIgnoreCase("")){
+            SpannableString content = new SpannableString("Insta Link: "+productData.instaUrl.trim());
+            content.setSpan(new UnderlineSpan(), 12, productData.instaUrl.trim().length()+12, 0);
+            content.setSpan(new ForegroundColorSpan(Color.BLUE), 12, productData.instaUrl.trim().length()+12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            instaLink.setText(content);
+        } else {
+            instaLink.setVisibility(View.GONE);
+        }
+        instaLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLink(productData.instaUrl);
+            }
+        });
+        if(productData.facebookUrl != null && !productData.facebookUrl.trim().equalsIgnoreCase("")){
+            SpannableString content = new SpannableString("Facebook Link: "+productData.facebookUrl.trim());
+            content.setSpan(new UnderlineSpan(), 15, productData.facebookUrl.trim().length() + 15, 0);
+            content.setSpan(new ForegroundColorSpan(Color.BLUE), 15, productData.facebookUrl.trim().length() + 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            fblink.setText(content);
+        } else {
+            fblink.setVisibility(View.GONE);
+        }
+        fblink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLink(productData.facebookUrl);
+            }
+        });
 
-        productprice.setText("₹ " + productData.productPrice);
+        if(productData.profileUrl != null && !productData.profileUrl.trim().equalsIgnoreCase("")){
+            SpannableString content = new SpannableString("Profile Link: "+productData.profileUrl.trim());
+            content.setSpan(new UnderlineSpan(), 14, productData.profileUrl.trim().length()+14, 0);
+            content.setSpan(new ForegroundColorSpan(Color.BLUE), 14, productData.profileUrl.trim().length()+14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            profileLink.setText(content);
+        } else {
+            profileLink.setVisibility(View.GONE);
+        }
+
+        profileLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLink(productData.profileUrl);
+            }
+        });
+
+
+        if(productData.otherUrl != null && !productData.otherUrl.trim().equalsIgnoreCase("")){
+            SpannableString content = new SpannableString("Other Link: "+productData.otherUrl.trim());
+            content.setSpan(new UnderlineSpan(), 12, productData.otherUrl.trim().length()+12, 0);
+            content.setSpan(new ForegroundColorSpan(Color.BLUE), 12, productData.otherUrl.trim().length()+12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            anyOtherLink.setText(content);
+        } else {
+            anyOtherLink.setVisibility(View.GONE);
+        }
+
+        anyOtherLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLink(productData.otherUrl);
+            }
+        });
+        if(productData.events != null && !productData.events.trim().equalsIgnoreCase("")){
+            events.setText(productData.events);
+        }
+        if(productData.amountLocal != null && !productData.amountLocal.trim().equalsIgnoreCase("")){
+            amountLocal.setText("Amount in "+productData.location+": "+productData.amountLocal);
+        }
+        if(productData.amountOutSide != null && !productData.amountOutSide.trim().equalsIgnoreCase("")){
+            amountOutside.setText("Amount outside "+productData.location+": "+productData.amountOutSide);
+        }
+        // Using Image Slider -----------------------------------------------------------------------
+        sliderShow = findViewById(R.id.slider);
+
+        //populating Image slider
+        ArrayList<String> sliderImages= new ArrayList<>();
+        sliderImages.add(CustomApplication.imagePath +productData.productImage);
+        if(productData.morePhotos != null && !productData.morePhotos.trim().equalsIgnoreCase("")){
+            try {
+                JSONArray morePhotosJson = new JSONArray(productData.morePhotos);
+                for(int k = 0; k< morePhotosJson.length(); k++){
+                    if(morePhotosJson.getString(k).contains("http")){
+                        sliderImages.add(morePhotosJson.getString(k));
+                    } else {
+                        sliderImages.add(CustomApplication.imagePath +morePhotosJson.getString(k));
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        for (String s:sliderImages){
+            DefaultSliderView sliderView=new DefaultSliderView(this);
+            sliderView.image(s);
+            sliderShow.addSlider(sliderView);
+        }
+
+        sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+
 
         productname.setText(productData.productTitle);
         productdesc.setText(Html.fromHtml(productData.productDescription));
@@ -96,6 +235,15 @@ public class IndividualAtrtist extends AppCompatActivity {
 
         //get firebase instance
         //initializing database reference
+    }
+    private void openLink(String url){
+        if (url.startsWith("https://") || url.startsWith("http://")) {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }else{
+            Toast.makeText(getApplicationContext(), "Invalid Url", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void Notifications(View view) {
@@ -177,7 +325,7 @@ public class IndividualAtrtist extends AppCompatActivity {
            addToCart(false);
     }
     public void callNow(View view) {
-        String number = ("tel:9024088049");
+        String number = ("tel:"+productData.contactNumber);
         mIntent = new Intent(Intent.ACTION_CALL);
         mIntent.setData(Uri.parse(number));
 // Here, thisActivity is the current activity
@@ -271,5 +419,11 @@ public class IndividualAtrtist extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        sliderShow.stopAutoCycle();
+        super.onStop();
+
+    }
 
 }

@@ -64,7 +64,18 @@
                 android:id="@+id/productimage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:visibility="gone"
                 android:src="@drawable/drawerback" />
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:auto_cycle="true"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="#424242"
+                app:pager_animation="Accordion"
+                app:pager_animation_span="1100" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,41 +90,80 @@
                     android:layout_height="wrap_content"
                     android:text="Denim Shirt"
                     android:textColor="@color/gen_black"
-                    android:textSize="16dp" />
+                    android:textSize="24dp" />
 
                 <TextView
-                    android:id="@+id/productprice"
+                    android:id="@+id/yearsofExperience"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Rs. 1,979"
-                    android:visibility="gone"
+                    android:text="-"
                     android:textColor="@color/gen_black"
-                    android:textSize="20dp" />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="FREE Delivery"
-                    android:visibility="gone"
-                    android:textSize="12dp" />
+                    android:layout_marginTop="8dp"
+                    android:text="DANCER"
+                    android:id="@+id/type"
+                    android:textColor="@color/gen_black"
+                    android:textSize="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Place: Rajasthan"
+                    android:id="@+id/place"
+                    android:textColor="@color/gen_black"
+                    android:textSize="16dp" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_width_small"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey_light" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:text="Quantity: "
+                    android:text="Profile Links: "
+                    android:textColor="@color/gen_black"
+                    android:textSize="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileLink"
+                    android:text="Profile Links: "
+                    android:layout_marginTop="8dp"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fblink"
+                    android:text="Profile Links: "
+                    android:textColor="@android:color/black"
+                    android:textSize="14dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile Links: "
+                    android:id="@+id/instaLink"
+                    android:textColor="@android:color/black"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/anyOtherLink"
+                    android:text="Profile Links: "
+                    android:textColor="@android:color/black"
+                    android:textSize="14dp" />
 
                 <Button
                     android:id="@+id/decrementQuantity"
@@ -122,6 +172,7 @@
                     android:backgroundTint="#eeeeee"
                     android:onClick="decrement"
                     android:text="-"
+                    android:visibility="gone"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -134,6 +185,7 @@
                     android:inputType="number"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
+                    android:visibility="gone"
                     tools:text="1" />
 
                 <Button
@@ -143,6 +195,7 @@
                     android:backgroundTint="#eeeeee"
                     android:onClick="increment"
                     android:text="+"
+                    android:visibility="gone"
                     android:textColor="@android:color/black" />
 
             </LinearLayout>
@@ -152,6 +205,46 @@
                 android:layout_height="@dimen/view_width_small"
                 android:layout_marginTop="8dp"
                 android:background="@color/grey_light" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Other Info"
+                    android:textColor="@color/gen_black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/events"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="\u2022 Regular fit, full sleeve"
+                    android:textColor="@color/gen_black"
+                    android:textSize="14dp" />
+                <TextView
+                    android:id="@+id/amountLocal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="\u2022 Regular fit, full sleeve"
+                    android:textColor="@color/gen_black"
+                    android:textSize="14dp" />
+                <TextView
+                    android:id="@+id/amountOutside"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="\u2022 Regular fit, full sleeve"
+                    android:textColor="@color/gen_black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
 
 
             <LinearLayout
@@ -175,9 +268,10 @@
                     android:layout_marginTop="8dp"
                     android:text="\u2022 Regular fit, full sleeve"
                     android:textColor="@color/gen_black"
-                    android:textSize="12dp" />
+                    android:textSize="14dp" />
 
             </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -216,10 +310,12 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:onClick="callNow"
             android:text="Call Now"
+            android:onClick="callNow"
             android:textColor="@color/gen_white"
             android:textSize="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:textStyle="bold" />
 
     </LinearLayout>
