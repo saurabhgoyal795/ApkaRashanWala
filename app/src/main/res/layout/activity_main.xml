@@ -249,6 +249,55 @@
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation= "5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:tag="62"
+                android:onClick="listOpenActivity2"
+                android:layout_gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <ImageView
+                        android:layout_height="120dp"
+                        android:layout_width="150dp"
+                        android:id="@+id/image4"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/property"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center"
+                        android:paddingRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/image4">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Property"
+                            android:textSize="20dp"
+                            android:singleLine="true"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Ask property dealer about your dream home, office etc"
+                            android:textSize="15dp"
+                            android:alpha="0.71"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
             <LinearLayout

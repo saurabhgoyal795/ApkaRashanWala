@@ -481,6 +481,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void listOpenActivity2(View view){
+        Intent intent = new Intent(MainActivity.this, SubCategory.class);
+        intent.putExtra("categoryId", "62");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     public void openWhatsApp(View view){
         String phone = "+919950257451";
         String message = "कृपया हमें अपने order की फोटो भेजें";

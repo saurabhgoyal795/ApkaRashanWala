@@ -93,6 +93,9 @@
             android:name=".IndividualProduct"
             android:theme="@style/WhiteTheme" />
         <activity
+            android:name=".IndividualProperty"
+            android:theme="@style/WhiteTheme" />
+        <activity
             android:name=".Wishlist"
             android:theme="@style/WhiteTheme" />
         <activity
@@ -117,6 +120,8 @@
         <activity android:name=".IndividualAtrtist"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".prodcutscategory.ProductListArtist"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".prodcutscategory.ProductListProperty"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".prodcutscategory.ProductsDownloadService" />

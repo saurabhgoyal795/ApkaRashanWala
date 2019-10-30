@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.dev.apkarashanwala.Cart;
 import com.dev.apkarashanwala.IndividualAtrtist;
 import com.dev.apkarashanwala.IndividualProduct;
+import com.dev.apkarashanwala.IndividualProperty;
 import com.dev.apkarashanwala.R;
 import com.dev.apkarashanwala.Utility.CommonUtility;
 import com.dev.apkarashanwala.db.CartItemDB;
@@ -233,6 +234,9 @@ public class SubCategory extends AppCompatActivity {
                         if(adapter == null) {
                             if(categoryId == 61){
                                 adapter = new ProductItemAdataper(productList,R.layout.product_list_artist,getApplicationContext(),categoryId);
+                                mRecyclerView.setAdapter(adapter);
+                            } else if(categoryId == 62){
+                                adapter = new ProductItemAdataper(productList,R.layout.product_list_property,getApplicationContext(),categoryId);
                                 mRecyclerView.setAdapter(adapter);
                             } else {
                                 adapter = new ProductItemAdataper(productList,R.layout.product_list,getApplicationContext(),categoryId);
@@ -483,6 +487,8 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
                 Intent intent = null;
                 if(categoryId == 61){
                     intent = new Intent(context, IndividualAtrtist.class);
+                } else if(categoryId == 62){
+                    intent = new Intent(context, IndividualProperty.class);
                 } else {
                     intent = new Intent(context, IndividualProduct.class);
                 }
@@ -594,6 +600,8 @@ class SubCategoryItemAdataper extends RecyclerView.Adapter<SubCategoryItemAdatap
                 Intent intent = null;
                 if(categoryId == 61){
                      intent = new Intent(context, ProductListArtist.class);
+                }else if(categoryId == 62){
+                    intent = new Intent(context, ProductListProperty.class);
                 } else {
                      intent = new Intent(context, ProductList.class);
                 }
