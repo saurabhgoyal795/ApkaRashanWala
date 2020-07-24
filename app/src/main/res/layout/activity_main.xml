@@ -105,6 +105,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content">
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -297,6 +298,55 @@
 
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation= "5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:tag="53"
+                android:onClick="listOpenActivity3"
+                android:layout_gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <ImageView
+                        android:layout_height="120dp"
+                        android:layout_width="150dp"
+                        android:id="@+id/image5"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/property"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center"
+                        android:paddingRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/image5">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="ApkaSweetWala"
+                            android:textSize="20dp"
+                            android:singleLine="true"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="Tasty food ate lower prices"
+                            android:textSize="15dp"
+                            android:alpha="0.71"
+                            android:layout_gravity="left"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 
@@ -304,7 +354,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:padding="10dp">
 
                 <LinearLayout

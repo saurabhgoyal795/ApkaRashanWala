@@ -96,7 +96,6 @@ public class SubCategory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitysubcategory);
-        Log.d("Aaay", "fnf");
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if(extras !=  null){
@@ -104,6 +103,8 @@ public class SubCategory extends AppCompatActivity {
 //            productTitle = extras.getString("title");
 
         }
+        Log.d("Aaay", "fnf" + categoryId);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(productTitle);
@@ -187,6 +188,8 @@ public class SubCategory extends AppCompatActivity {
             if (!isFetched && CommonUtility.isConnectedToInternet(getApplicationContext())) {
                 getApplicationContext().startService(new Intent(getApplicationContext(),ProductsDownloadService.class).putExtra("categoryId", String.valueOf(categoryId)));
             }
+            Log.d("Aaay", "aBoolean" + aBoolean);
+
             if (aBoolean) {
                 getCategoryList();
             }
@@ -499,8 +502,9 @@ class ProductItemAdataper extends RecyclerView.Adapter<ProductItemAdataper.NewsV
             }
         };
         RLContainer.setOnClickListener(mClickListener);
-
-
+        if (categoryId == 53){
+            holder.buyButton.setVisibility(View.GONE);
+        }
     }
 
     class AddToCart extends AsyncTask<Integer, Void , Boolean> {

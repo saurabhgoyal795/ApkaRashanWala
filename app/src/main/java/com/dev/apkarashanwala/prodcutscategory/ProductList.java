@@ -125,10 +125,6 @@ public class ProductList extends AppCompatActivity {
 
     }
 
-
-
-
-
     @Override
     public void onStart() {
         super.onStart();

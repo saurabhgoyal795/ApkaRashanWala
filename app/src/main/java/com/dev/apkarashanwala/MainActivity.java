@@ -209,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
 
         //populating Image slider
         ArrayList<String> sliderImages = new ArrayList<>();
-        sliderImages.add("http://aapkarashanwala.com/img/slider/slider1.jpg");
-        sliderImages.add("http://aapkarashanwala.com/img/slider/slider2.jpg");
+        sliderImages.add("https://i.ibb.co/3Ct45dX/slider-Image.jpg");
+        sliderImages.add("https://i.ibb.co/99zX0BK/1-l-Pl3-LBUBm8a-O61-J2q-U6-VVg.jpg");
 
         for (String s : sliderImages) {
             DefaultSliderView sliderView = new DefaultSliderView(this);
@@ -484,6 +484,13 @@ public class MainActivity extends AppCompatActivity {
     public void listOpenActivity2(View view){
         Intent intent = new Intent(MainActivity.this, SubCategory.class);
         intent.putExtra("categoryId", "62");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void listOpenActivity3(View view){
+        Intent intent = new Intent(MainActivity.this, SubCategory.class);
+        intent.putExtra("categoryId", "53");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -149,8 +149,8 @@ public class Profile extends AppCompatActivity {
 
         //populating Image slider
         ArrayList<String> sliderImages= new ArrayList<>();
-        sliderImages.add("http://aapkarashanwala.com/img/slider/slider1.jpg");
-        sliderImages.add("http://aapkarashanwala.com/img/slider/slider2.jpg");
+        sliderImages.add("https://i.ibb.co/3Ct45dX/slider-Image.jpg");
+        sliderImages.add("https://i.ibb.co/99zX0BK/1-l-Pl3-LBUBm8a-O61-J2q-U6-VVg.jpg");
 
         for (String s:sliderImages){
             DefaultSliderView sliderView=new DefaultSliderView(this);
