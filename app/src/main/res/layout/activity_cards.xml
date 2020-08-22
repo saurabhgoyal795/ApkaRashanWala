@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbarwrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="fill_parent"
             android:layout_height="58dp"
@@ -65,15 +65,13 @@
                 android:id="@+id/searchViewlayout"
                 android:visibility="gone"
                 android:orientation="horizontal">
-                <com.rengwuxian.materialedittext.MaterialEditText
+                <EditText
                     android:id="@+id/searchEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Enter Product name"
                     android:singleLine="true"
-                    android:layout_toLeftOf="@+id/search_button"
-                    app:met_primaryColor="@color/colorPrimaryDark"
-                    app:met_floatingLabel="highlight" />
+                    android:layout_toLeftOf="@+id/search_button" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,8 +90,8 @@
                     android:textSize="15sp" />
             </RelativeLayout>
 
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/tv_no_cards"
@@ -115,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_recycler_view"
             android:scrollbars="vertical"
             android:layout_height="match_parent"
@@ -138,11 +136,12 @@
         android:visibility="gone"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_recycler_view2"
             android:scrollbars="vertical"
             android:layout_height="match_parent"
             android:layout_width="match_parent"/>
+
 
     </FrameLayout>
 

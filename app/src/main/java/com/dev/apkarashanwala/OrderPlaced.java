@@ -1,14 +1,12 @@
 package com.dev.apkarashanwala;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dev.apkarashanwala.db.CartItemDB;
-import com.dev.apkarashanwala.db.OrderDB;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 import com.dev.apkarashanwala.usersession.UserSession;
 

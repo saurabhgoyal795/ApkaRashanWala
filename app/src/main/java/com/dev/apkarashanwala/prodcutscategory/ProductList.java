@@ -1,21 +1,14 @@
 package com.dev.apkarashanwala.prodcutscategory;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Paint;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,14 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.dev.apkarashanwala.Cart;
-import com.dev.apkarashanwala.IndividualProduct;
 import com.dev.apkarashanwala.R;
-import com.dev.apkarashanwala.Utility.CommonUtility;
 import com.dev.apkarashanwala.db.ProductItemDB;
 import com.dev.apkarashanwala.db.SubCategoryItemDB;
-import com.dev.apkarashanwala.init.CustomApplication;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 
 import java.util.ArrayList;

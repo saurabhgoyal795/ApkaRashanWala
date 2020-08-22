@@ -8,6 +8,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+
 import com.dev.apkarashanwala.DataBaseUtility.DatabaseInterface;
 import com.dev.apkarashanwala.Utility.CommonUtility;
 import com.dev.apkarashanwala.init.CustomApplication;
