@@ -29,17 +29,11 @@ import butterknife.ButterKnife;
 
 public class IndividualProduct extends AppCompatActivity {
 
-    @BindView(R.id.productimage)
     ImageView productimage;
-    @BindView(R.id.productname)
     TextView productname;
-    @BindView(R.id.productprice)
     TextView productprice;
-    @BindView(R.id.add_to_cart)
     TextView addToCart;
-    @BindView(R.id.productdesc)
     TextView productdesc;
-    @BindView(R.id.quantityProductPage)
     EditText quantityProductPage;
     LottieAnimationView addToWishlist;
     private String usermobile, useremail;
@@ -52,7 +46,13 @@ public class IndividualProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_product);
-        ButterKnife.bind(this);
+        productimage =findViewById(R.id.productimage);
+        productname =findViewById(R.id.productname);
+        productprice =findViewById(R.id.productprice);
+        addToCart =findViewById(R.id.add_to_cart);
+        productdesc =findViewById(R.id.productdesc);
+        quantityProductPage =findViewById(R.id.quantityProductPage);
+
         //check Internet Connection
         new CheckInternetConnection(this).checkConnection();
 

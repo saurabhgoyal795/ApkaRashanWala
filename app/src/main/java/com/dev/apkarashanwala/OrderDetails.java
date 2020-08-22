@@ -41,22 +41,15 @@ import butterknife.ButterKnife;
 
 public class OrderDetails extends AppCompatActivity {
 
-    @BindView(R.id.delivery_date)
     TextView deliveryDate;
-    @BindView(R.id.no_of_items)
     TextView noOfItems;
-    @BindView(R.id.total_amount)
-    TextView totalAmount;
-    @BindView(R.id.ordername)
     MaterialEditText ordername;
-    @BindView(R.id.ordernumber)
     MaterialEditText ordernumber;
-    @BindView(R.id.orderaddress)
     MaterialEditText orderaddress;
-    @BindView(R.id.orderpincode)
     MaterialEditText orderpincode;
-    @BindView(R.id.placeorderButton)
     ImageView placeorderButton;
+    TextView totalAmount;
+
 
     private ArrayList<CartItemDB> cartcollect;
     private String payment_mode="COD",order_reference_id;
@@ -73,7 +66,15 @@ public class OrderDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
-        ButterKnife.bind(this);
+        totalAmount = findViewById(R.id.total_amount2);
+        deliveryDate = findViewById(R.id.delivery_date);
+        noOfItems = findViewById(R.id.no_of_items);
+        ordername = findViewById(R.id.ordername);
+        ordernumber = findViewById(R.id.ordernumber);
+        orderaddress = findViewById(R.id.orderaddress);
+        orderpincode = findViewById(R.id.orderpincode);
+        placeorderButton = findViewById(R.id.placeorderButton);
+
         requestQueue = Volley.newRequestQueue(OrderDetails.this);//Creating the RequestQueue
 
         //check Internet Connection
