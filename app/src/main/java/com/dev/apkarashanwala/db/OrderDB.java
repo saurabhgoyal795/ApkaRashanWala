@@ -23,20 +23,23 @@ public class OrderDB implements Parcelable {
     public int orderId;
     public String total;
     public String date;
+    public String data;
 
 
     private static final String COL_ORDER_ID = "sId";
     private static final String COL_TOTAL = "sTotal";
     private static final String COL_DATE = "sDate";
+    private static final String COL_DATA = "sData";
 
     public OrderDB() {
 
     }
 
-    public OrderDB(int orderId, String total, String date) {
+    public OrderDB(int orderId, String total, String date, String data) {
         this.orderId=orderId;
         this.total=total;
         this.date = date;
+        this.data = data;
     }
 
 
@@ -44,6 +47,7 @@ public class OrderDB implements Parcelable {
         orderId = in.readInt();
         total = in.readString();
         date = in.readString();
+        data = in.readString();
     }
 
     @Override
@@ -56,6 +60,7 @@ public class OrderDB implements Parcelable {
         dest.writeInt(orderId);
         dest.writeString(total);
         dest.writeString(date);
+        dest.writeString(data);
     }
 
     @Override
@@ -65,6 +70,7 @@ public class OrderDB implements Parcelable {
             json.put(COL_ORDER_ID, orderId);
             json.put(COL_TOTAL, total);
             json.put(COL_DATE, date);
+            json.put(COL_DATA, data);
         } catch(JSONException e) {
             if(CommonUtility.isDebugModeOn) {
                 CommonUtility.printStackTrace(e);
@@ -78,13 +84,15 @@ public class OrderDB implements Parcelable {
         values.put(COL_ORDER_ID, orderId);
         values.put(COL_TOTAL, total);
         values.put(COL_DATE, date);
+        values.put(COL_DATA, data);
         return values;
     }
 
     private static final String QUERY_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
             + COL_ORDER_ID + " INTEGER PRIMARY KEY ,"
             + COL_TOTAL + " TEXT ,"
-            + COL_DATE + " TEXT )";
+            + COL_DATE + " TEXT ,"
+            + COL_DATA + " TEXT )";
 
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL(QUERY_CREATE_TABLE);
@@ -92,9 +100,10 @@ public class OrderDB implements Parcelable {
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
-//                if(oldVersion <= 75){
-            onCreate(db);
-//                }
+            if (oldVersion < 4) {
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+                onCreate(db);
+            }
         } catch(Throwable e) {
             if(CommonUtility.isDebugModeOn) {
                 CommonUtility.printStackTrace(e);
@@ -131,7 +140,8 @@ public class OrderDB implements Parcelable {
                     OrderDB product = new OrderDB(
                             cursor.getInt(cursor.getColumnIndex(COL_ORDER_ID)),
                             cursor.getString(cursor.getColumnIndex(COL_TOTAL)),
-                            cursor.getString(cursor.getColumnIndex(COL_DATE)));
+                            cursor.getString(cursor.getColumnIndex(COL_DATE)),
+                            cursor.getString(cursor.getColumnIndex(COL_DATA)));
                     productList.add(product);
                 } while(cursor.moveToNext());
             }

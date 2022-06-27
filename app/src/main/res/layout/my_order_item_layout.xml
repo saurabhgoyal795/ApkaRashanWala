@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="Date"
                 android:textSize="@dimen/text_size_xmedium"
-                android:textColor="@color/headingColor"
+                android:textColor="#212121"
                 android:layout_marginTop="@dimen/margin_small"/>
 
             <LinearLayout
