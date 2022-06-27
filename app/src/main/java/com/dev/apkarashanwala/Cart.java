@@ -300,10 +300,18 @@ class CartItemAdataper extends RecyclerView.Adapter<CartItemAdataper.NewsViewHol
     }
 
     public float getTotalcost() {
+        totalcost = 0;
+        for (int i =0 ;i<newsItems.size();i++){
+            totalcost += newsItems.get(i).quantity*Float.valueOf(newsItems.get(i).productPrice);
+        }
         return totalcost;
     }
 
     public int getTotalproducts() {
+        totalproducts = 0;
+        for (int i =0 ;i<newsItems.size();i++) {
+            totalproducts += newsItems.get(i).quantity;
+        }
         return totalproducts;
     }
 }

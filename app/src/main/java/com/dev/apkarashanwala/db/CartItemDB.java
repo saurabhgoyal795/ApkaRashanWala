@@ -133,9 +133,10 @@ public class CartItemDB implements Parcelable {
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
-//                if(oldVersion <= 75){
-            onCreate(db);
-//                }
+            if (oldVersion < 3) {
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+                onCreate(db);
+            }
         } catch(Throwable e) {
             if(CommonUtility.isDebugModeOn) {
                 CommonUtility.printStackTrace(e);
@@ -152,6 +153,10 @@ public class CartItemDB implements Parcelable {
         }
 
         boolean st = db.insert(TABLE_NAME, null, product.getValues()) != -1;
+        if (st == false) {
+            db.update(TABLE_NAME, product.getValues(), COL_PRODUCT_ID+"="+product.productId, null);
+
+        }
         Log.d("itemadded","st is "+st);
         return st;
     }
