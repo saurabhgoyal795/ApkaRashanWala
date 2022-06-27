@@ -1,16 +1,11 @@
 package com.dev.apkarashanwala;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dev.apkarashanwala.db.CartItemDB;
-import com.dev.apkarashanwala.db.OrderDB;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
-import com.dev.apkarashanwala.usersession.UserSession;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,11 +26,6 @@ public class OrderPlaced extends AppCompatActivity {
         new CheckInternetConnection(this).checkConnection();
 
         initialize();
-        try {
-            new DeleteCart2().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }catch (Exception e ){
-
-        }
     }
 
     private void initialize() {
@@ -45,26 +35,5 @@ public class OrderPlaced extends AppCompatActivity {
 
     public void finishActivity(View view) {
         finish();
-    }
-
-    public class DeleteCart2 extends AsyncTask<Void, Void , Boolean> {
-        int pos;
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            CartItemDB.deleteCart();
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            try {
-                UserSession session = new UserSession(getApplicationContext());
-                session.setCartValue(0);
-            }catch (Exception e){
-
-            }
-        }
     }
 }

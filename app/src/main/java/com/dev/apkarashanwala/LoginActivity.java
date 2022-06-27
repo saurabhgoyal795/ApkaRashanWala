@@ -128,16 +128,13 @@ public class LoginActivity extends AppCompatActivity {
                                     //Passing all received data from server to next activity
                                     String sessionname = successObject.getString("name");
                                     sessionmobile = successObject.optString("mobile");
-                                    String sessionRefId = successObject.getString("refId");
 
                                     String sessionemail =  email;
 //                                    String sessionphoto =  jsonObject.getString("url");
                                     String sessionphoto = "logo.jpg";
                                     String userID = successObject.getString("userid");
-                                    String toshowoffer = successObject.getString("toshowoffer");
-
                                     //create shared preference and store data
-                                    session.createLoginSession(sessionname,sessionemail,sessionmobile,sessionphoto,userID,sessionRefId,toshowoffer);
+                                    session.createLoginSession(sessionname,sessionemail,sessionmobile,sessionphoto,userID);
 
                                     //count value of firebase cart and wishlist
 

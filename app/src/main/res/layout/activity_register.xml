@@ -124,19 +124,6 @@
             app:met_primaryColor="@color/colorAccent"
             android:inputType="number"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/refId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Reference Id (Optional)"
-            app:met_iconLeft="@android:drawable/stat_notify_more"
-            app:met_floatingLabel="highlight"
-            app:met_baseColor="@color/colorAccent"
-            app:met_errorColor="@color/darkWhite"
-            app:met_clearButton="true"
-            app:met_primaryColor="@color/colorAccent"
-            android:inputType="number"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

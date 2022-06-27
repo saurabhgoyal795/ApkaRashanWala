@@ -3,27 +3,17 @@ package com.dev.apkarashanwala;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.res.ResourcesCompat;
-import android.util.Base64;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dev.apkarashanwala.usersession.UserSession;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import static com.dev.apkarashanwala.Register.TAG;
 
 public class SplashActivity extends Activity {
 
@@ -43,7 +33,7 @@ public class SplashActivity extends Activity {
 
       TextView appname= findViewById(R.id.appname);
       appname.setTypeface(typeface);
-        printHashKey(getApplicationContext());
+
         YoYo.with(Techniques.Bounce)
                 .duration(7000)
                 .playOn(findViewById(R.id.logo));
@@ -74,22 +64,6 @@ public class SplashActivity extends Activity {
                 }
             }, SPLASH_TIME_OUT);
         }
-
-    public  void printHashKey(Context pContext) {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String hashKey = new String(Base64.encode(md.digest(), 0));
-                Log.i("Saurabh", "printHashKey() Hash Key: " + hashKey);
-            }
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, "printHashKey()", e);
-        } catch (Exception e) {
-            Log.e(TAG, "printHashKey()", e);
-        }
-    }
 
     private boolean isInternetConnected() {
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);

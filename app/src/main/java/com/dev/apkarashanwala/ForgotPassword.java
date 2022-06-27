@@ -27,6 +27,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import es.dmoral.toasty.Toasty;
 
 public class ForgotPassword extends AppCompatActivity {
 
@@ -104,11 +105,11 @@ public class ForgotPassword extends AppCompatActivity {
 
                             } else {
                                 if (jsonObject.getString("status").equals("INVALID"))
-                                    Toast.makeText(ForgotPassword.this, "User Not Found", Toast.LENGTH_SHORT).show();
+                                    Toasty.error(ForgotPassword.this, "User Not Found", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(ForgotPassword.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
+                            Toasty.error(ForgotPassword.this, "Bad Response From Server", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -116,11 +117,11 @@ public class ForgotPassword extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         if (error instanceof ServerError)
-                            Toast.makeText(ForgotPassword.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            Toasty.error(ForgotPassword.this, "Server Error", Toast.LENGTH_SHORT).show();
                         else if (error instanceof TimeoutError)
-                            Toast.makeText(ForgotPassword.this, "Connection Timed Out", Toast.LENGTH_SHORT).show();
+                            Toasty.error(ForgotPassword.this, "Connection Timed Out", Toast.LENGTH_SHORT).show();
                         else if (error instanceof NetworkError)
-                            Toast.makeText(ForgotPassword.this, "Bad Network Connection", Toast.LENGTH_SHORT).show();
+                            Toasty.error(ForgotPassword.this, "Bad Network Connection", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -157,7 +158,7 @@ public class ForgotPassword extends AppCompatActivity {
 
                         //do some magic
 
-                        Toast.makeText(ForgotPassword.this, "Password sent to Email Account",Toast.LENGTH_SHORT).show();
+                        Toasty.success(ForgotPassword.this, "Password sent to Email Account",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
                         finish();
                     }
