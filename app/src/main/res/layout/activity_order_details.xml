@@ -184,7 +184,6 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:elevation="40dp"
-                android:id="@+id/placeorderButton"
                 android:background="@color/colorPrimary"
                 android:padding="17dp"
                 android:onClick="PlaceOrder"/>

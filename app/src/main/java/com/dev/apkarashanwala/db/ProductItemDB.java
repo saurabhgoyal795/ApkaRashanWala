@@ -22,22 +22,11 @@ public class ProductItemDB implements Parcelable {
         private static final String TABLE_NAME = "ProductItemDB";
         public int productId;
         public int categoryId;
-        public int subcat = 0;
         public String productImage;
         public String productTitle;
         public String productDescription;
         public String productPrice;
         public String productMrp;
-        public String facebookUrl;
-        public String instaUrl;
-        public String profileUrl;
-        public String otherUrl;
-        public String events;
-        public String morePhotos;
-        public String amountLocal;
-        public String amountOutSide;
-        public String location;
-        public String contactNumber;
 
         private static final String COL_PRODUCT_ID = "sId";
         private static final String COL_CATEGORY_ID = "sCategoryId";
@@ -46,24 +35,12 @@ public class ProductItemDB implements Parcelable {
         private static final String COL_PRODUCT_DESCRIPTION= "sDescription";
         private static final String COL_PRODUCT_PRICE= "sPrice";
         private static final String COL_PRODUCT_MRP= "sMrp";
-        private static final String COL_SUBCATEGORY_ID = "sSub";
-        private static final String COL_FACEBOOK_URL= "fId";
-        private static final String COL_INSTA_URL= "sInsta";
-        private static final String COL_PROFILE_URL= "sProfileLink";
-        private static final String COL_OTHER_URL= "fOtherLink";
-        private static final String COL_EVENTS_= "sEvents";
-        private static final String COL_MORE_PHOTOS= "sMorePhotos";
-        private static final String COL_AMOUNT_LOCAL= "sAmountLocal";
-        private static final String COL_AMOUNT_OUTSIDE= "sAmountOutside";
-        private static final String COL_LOCATION= "sLocation";
-        private static final String COL_CONTACTNUMBER= "sContactNumber";
 
-
-    public ProductItemDB() {
+        public ProductItemDB() {
 
         }
 
-        public ProductItemDB(int productId,int categoryId,String productImage, String productTitle, String productDescription, String productPrice,String productMrp,int subcat, String facebookLink, String instaLink, String profileLink, String otherUrl, String events, String morePhotos, String amountLocal, String amountOutSide, String location,String contactNumber) {
+        public ProductItemDB(int productId,int categoryId,String productImage, String productTitle, String productDescription, String productPrice,String productMrp) {
             this.productId=productId;
             this.categoryId=categoryId;
             this.productImage=productImage;
@@ -71,17 +48,6 @@ public class ProductItemDB implements Parcelable {
             this.productDescription=productDescription;
             this.productPrice=productPrice;
             this.productMrp=productMrp;
-            this.subcat = subcat;
-            this.facebookUrl = facebookLink;
-            this.instaUrl = instaLink;
-            this.profileUrl = profileLink;
-            this.otherUrl = otherUrl;
-            this.events = events;
-            this.morePhotos = morePhotos;
-            this.amountLocal = amountLocal;
-            this.amountOutSide = amountOutSide;
-            this.location = location;
-            this.contactNumber = contactNumber;
         }
 
 
@@ -93,18 +59,6 @@ public class ProductItemDB implements Parcelable {
             productDescription=in.readString();
             productPrice=in.readString();
             productMrp=in.readString();
-            subcat = in.readInt();
-            facebookUrl = in.readString();
-            instaUrl = in.readString();
-            profileUrl = in.readString();
-            otherUrl = in.readString();
-            events = in.readString();
-            morePhotos = in.readString();
-            amountLocal = in.readString();
-            amountOutSide = in.readString();
-            location = in.readString();
-            contactNumber = in.readString();
-
         }
 
         @Override
@@ -121,18 +75,6 @@ public class ProductItemDB implements Parcelable {
             dest.writeString(productDescription);
             dest.writeString(productPrice);
             dest.writeString(productMrp);
-            dest.writeInt(subcat);
-            dest.writeString(facebookUrl);
-            dest.writeString(instaUrl);
-            dest.writeString(profileUrl);
-            dest.writeString(otherUrl);
-            dest.writeString(events);
-            dest.writeString(morePhotos);
-            dest.writeString(amountLocal);
-            dest.writeString(amountOutSide);
-            dest.writeString(location);
-            dest.writeString(contactNumber);
-
         }
 
         @Override
@@ -146,17 +88,6 @@ public class ProductItemDB implements Parcelable {
                 json.put(COL_PRODUCT_DESCRIPTION, productDescription);
                 json.put(COL_PRODUCT_PRICE, productPrice);
                 json.put(COL_PRODUCT_MRP, productMrp);
-                json.put(COL_SUBCATEGORY_ID,subcat);
-                json.put(COL_FACEBOOK_URL,facebookUrl);
-                json.put(COL_INSTA_URL,instaUrl);
-                json.put(COL_PROFILE_URL,profileUrl);
-                json.put(COL_OTHER_URL,otherUrl);
-                json.put(COL_EVENTS_,events);
-                json.put(COL_MORE_PHOTOS,morePhotos);
-                json.put(COL_AMOUNT_LOCAL,amountLocal);
-                json.put(COL_AMOUNT_OUTSIDE,amountOutSide);
-                json.put(COL_LOCATION,location);
-                json.put(COL_CONTACTNUMBER,contactNumber);
 
             } catch(JSONException e) {
                 if(CommonUtility.isDebugModeOn) {
@@ -175,17 +106,6 @@ public class ProductItemDB implements Parcelable {
             values.put(COL_PRODUCT_DESCRIPTION, productDescription);
             values.put(COL_PRODUCT_PRICE, productPrice);
             values.put(COL_PRODUCT_MRP, productMrp);
-            values.put(COL_SUBCATEGORY_ID,subcat);
-            values.put(COL_FACEBOOK_URL,facebookUrl);
-            values.put(COL_INSTA_URL,instaUrl);
-            values.put(COL_PROFILE_URL,profileUrl);
-            values.put(COL_OTHER_URL,otherUrl);
-            values.put(COL_EVENTS_,events);
-            values.put(COL_MORE_PHOTOS,morePhotos);
-            values.put(COL_AMOUNT_LOCAL,amountLocal);
-            values.put(COL_AMOUNT_OUTSIDE,amountOutSide);
-            values.put(COL_LOCATION,location);
-            values.put(COL_CONTACTNUMBER,contactNumber);
             return values;
         }
 
@@ -196,18 +116,7 @@ public class ProductItemDB implements Parcelable {
                 + COL_PRODUCT_TITLE + " TEXT,"
                 + COL_PRODUCT_DESCRIPTION + " TEXT,"
                 + COL_PRODUCT_PRICE + " TEXT,"
-                + COL_PRODUCT_MRP + " TEXT,"
-                + COL_SUBCATEGORY_ID + " INTEGER,"
-                + COL_FACEBOOK_URL + " TEXT,"
-                + COL_INSTA_URL + " TEXT,"
-                + COL_PROFILE_URL + " TEXT,"
-                + COL_OTHER_URL + " TEXT,"
-                + COL_EVENTS_ + " TEXT,"
-                + COL_MORE_PHOTOS + " TEXT,"
-                + COL_AMOUNT_LOCAL + " TEXT,"
-                + COL_AMOUNT_OUTSIDE + " TEXT,"
-                + COL_LOCATION + " TEXT,"
-                + COL_CONTACTNUMBER + " TEXT)";
+                + COL_PRODUCT_MRP + " TEXT)";
 
         public static void onCreate(SQLiteDatabase db) {
             db.execSQL(QUERY_CREATE_TABLE);
@@ -215,11 +124,9 @@ public class ProductItemDB implements Parcelable {
 
         public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try {
-
-                if (oldVersion < 7) {
-                    db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-                    onCreate(db);
-                }
+//                if(oldVersion <= 75){
+                onCreate(db);
+//                }
             } catch(Throwable e) {
                 if(CommonUtility.isDebugModeOn) {
                     CommonUtility.printStackTrace(e);
@@ -259,24 +166,15 @@ public class ProductItemDB implements Parcelable {
                 Log.d("TRE","20111: TRy ");
                 if(cursor.moveToFirst()) {
                     Log.d("TRE","20111: TRy  IF ");
-                    product =  new ProductItemDB(topicId,
+
+
+                    product = new ProductItemDB(topicId,
                             cursor.getInt(cursor.getColumnIndex(COL_CATEGORY_ID)),
                             cursor.getString(cursor.getColumnIndex(COL_PRODUCT_IMAGE)),
                             cursor.getString(cursor.getColumnIndex(COL_PRODUCT_TITLE)),
                             cursor.getString(cursor.getColumnIndex(COL_PRODUCT_DESCRIPTION)),
                             cursor.getString(cursor.getColumnIndex(COL_PRODUCT_PRICE)),
-                            cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)),
-                            cursor.getInt(cursor.getColumnIndex(COL_SUBCATEGORY_ID)),
-                            cursor.getString(cursor.getColumnIndex(COL_FACEBOOK_URL)),
-                            cursor.getString(cursor.getColumnIndex(COL_INSTA_URL)),
-                            cursor.getString(cursor.getColumnIndex(COL_PROFILE_URL)),
-                            cursor.getString(cursor.getColumnIndex(COL_OTHER_URL)),
-                            cursor.getString(cursor.getColumnIndex(COL_EVENTS_)),
-                            cursor.getString(cursor.getColumnIndex(COL_MORE_PHOTOS)),
-                            cursor.getString(cursor.getColumnIndex(COL_AMOUNT_LOCAL)),
-                            cursor.getString(cursor.getColumnIndex(COL_AMOUNT_OUTSIDE)),
-                            cursor.getString(cursor.getColumnIndex(COL_LOCATION)),
-                            cursor.getString(cursor.getColumnIndex(COL_CONTACTNUMBER)));
+                            cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)));
                 }
             } finally {
                 cursor.close();
@@ -307,19 +205,8 @@ public class ProductItemDB implements Parcelable {
                                 cursor.getString(cursor.getColumnIndex(COL_PRODUCT_TITLE)),
                                 cursor.getString(cursor.getColumnIndex(COL_PRODUCT_DESCRIPTION)),
                                 cursor.getString(cursor.getColumnIndex(COL_PRODUCT_PRICE)),
-                                cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)),
-                                cursor.getInt(cursor.getColumnIndex(COL_SUBCATEGORY_ID)),
-                                cursor.getString(cursor.getColumnIndex(COL_FACEBOOK_URL)),
-                                cursor.getString(cursor.getColumnIndex(COL_INSTA_URL)),
-                                cursor.getString(cursor.getColumnIndex(COL_PROFILE_URL)),
-                                cursor.getString(cursor.getColumnIndex(COL_OTHER_URL)),
-                                cursor.getString(cursor.getColumnIndex(COL_EVENTS_)),
-                                cursor.getString(cursor.getColumnIndex(COL_MORE_PHOTOS)),
-                                cursor.getString(cursor.getColumnIndex(COL_AMOUNT_LOCAL)),
-                                cursor.getString(cursor.getColumnIndex(COL_AMOUNT_OUTSIDE)),
-                                cursor.getString(cursor.getColumnIndex(COL_LOCATION)),
-                                cursor.getString(cursor.getColumnIndex(COL_CONTACTNUMBER)));
-                                productList.add(product);
+                                cursor.getString(cursor.getColumnIndex(COL_PRODUCT_MRP)));
+                        productList.add(product);
                     } while(cursor.moveToNext());
                 }
             }catch (Exception e){

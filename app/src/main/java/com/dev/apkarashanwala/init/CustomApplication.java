@@ -38,7 +38,7 @@ public class CustomApplication extends Application {
 
 
         //Database ORMhelper class
-//        ActiveAndroid.initialize(this);
+        ActiveAndroid.initialize(this);
 
         context = getApplicationContext();
         mApplication = this;

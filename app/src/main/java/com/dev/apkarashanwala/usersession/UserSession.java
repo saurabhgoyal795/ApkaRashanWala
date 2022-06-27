@@ -45,9 +45,6 @@ public class UserSession {
     // Mobile number (make variable public to access from outside)
     public static final String KEY_MOBiLE = "mobile";
 
-    public static final String KEY_REFID = "-1";
-
-
     // user avatar (make variable public to access from outside)
     public static final String KEY_PHOTO = "photo";
     public static final String KEY_USERID = "userId";
@@ -60,8 +57,6 @@ public class UserSession {
 
     // check first time app launch
     public static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
-    public static final String TO_SHOW_OFFER = "ToShowOffer";
-
 
     // Constructor
     public UserSession(Context context){
@@ -73,7 +68,7 @@ public class UserSession {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String email, String mobile, String photo,String userId,String refId, String toShowOffer){
+    public void createLoginSession(String name, String email, String mobile, String photo,String userId){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -86,14 +81,10 @@ public class UserSession {
         // Storing phone number in pref
         editor.putString(KEY_MOBiLE, mobile);
 
-        editor.putString(KEY_REFID, refId);
-
-
         // Storing image url in pref
         editor.putString(KEY_PHOTO, photo);
 
         editor.putString(KEY_USERID, userId);
-        editor.putString(TO_SHOW_OFFER, toShowOffer);
 
 
         // commit changes
@@ -138,13 +129,10 @@ public class UserSession {
         // user phone number
         user.put(KEY_MOBiLE, pref.getString(KEY_MOBiLE, null));
 
-        user.put(KEY_REFID, pref.getString(KEY_REFID, null));
-
         // user avatar
         user.put(KEY_PHOTO, pref.getString(KEY_PHOTO, null)) ;
 
         user.put(KEY_USERID, pref.getString(KEY_USERID, null));
-        user.put(TO_SHOW_OFFER, pref.getString(TO_SHOW_OFFER, "yes"));
 
         // return user
         return user;
@@ -201,12 +189,6 @@ public class UserSession {
         editor.putInt(KEY_CART,val);
         editor.commit();
         Log.e("Cart Value PE", "Var value : "+val+"Cart Value :"+getCartValue()+" ");
-    }
-
-
-    public void setShowOffer(){
-        editor.putString(TO_SHOW_OFFER,"no");
-        editor.commit();
     }
 
     public void increaseWishlistValue(){

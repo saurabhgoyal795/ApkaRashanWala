@@ -6,21 +6,17 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 import com.dev.apkarashanwala.prodcutscategory.ProductList;
-import com.dev.apkarashanwala.prodcutscategory.SubCategory;
 import com.dev.apkarashanwala.usersession.UserSession;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
@@ -39,10 +35,10 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.webianks.easy_feedback.EasyFeedback;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,11 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private String name, email, photo, mobile;
     private String first_time;
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
-    LinearLayout firstOrder ;
-    LinearLayout clickActivity;
-    Button firstShoppingButton;
     Intent mIntent;
-    FloatingActionButton fab;
 
 
     @Override
@@ -72,34 +64,8 @@ public class MainActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.blacklist);
         TextView appname = findViewById(R.id.appname);
         appname.setTypeface(typeface);
-        firstOrder = findViewById(R.id.firstOrder);
-        clickActivity = findViewById(R.id.clickActivity);
-        firstShoppingButton =findViewById(R.id.firstShoppingButton);
-        fab = findViewById(R.id.fab);
+
         new CheckInternetConnection(this).checkConnection();
-        session = new UserSession(getApplicationContext());
-
-
-        firstOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firstOrder.setVisibility(View.GONE);
-                fab.setVisibility(View.VISIBLE);
-            }
-        });
-        clickActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firstOrder.setVisibility(View.VISIBLE);
-            }
-        });
-        firstShoppingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firstOrder.setVisibility(View.GONE);
-                fab.setVisibility(View.VISIBLE);
-            }
-        });
 
         getValues();
         inflateNavDrawer();
@@ -108,13 +74,6 @@ public class MainActivity extends AppCompatActivity {
         if (session.getFirstTime()) {
             tapview();
             session.setFirstTime(false);
-        } else {
-            if(session.getUserDetails().get(UserSession.TO_SHOW_OFFER).trim().equalsIgnoreCase("yes")){
-                firstOrder.setVisibility(View.VISIBLE);
-            } else {
-                firstOrder.setVisibility(View.GONE);
-//                fab.setVisibility(View.VISIBLE);
-            }
         }
     }
 
@@ -143,31 +102,25 @@ public class MainActivity extends AppCompatActivity {
                                 .cancelable(false)// Whether tapping outside the outer circle dismisses the view
                                 .tintTarget(true)
                                 .transparentTarget(true)
-                                .outerCircleColor(R.color.second)
-//                        TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
-//                                .targetCircleColor(R.color.colorAccent)
-//                                .titleTextColor(R.color.colorAccent)
-//                                .titleTextSize(25)
-//                                .descriptionTextSize(15)
-//                                .descriptionTextColor(R.color.accent)
-//                                .drawShadow(true)
-//                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
-//                                .tintTarget(true)
-//                                .transparentTarget(true)
-//                                .outerCircleColor(R.color.fourth)
-                                ).listener(new TapTargetSequence.Listener() {
+                                .outerCircleColor(R.color.second),
+                        TapTarget.forView(findViewById(R.id.visitingcards), "Categories", "Product Categories have been listed here !")
+                                .targetCircleColor(R.color.colorAccent)
+                                .titleTextColor(R.color.colorAccent)
+                                .titleTextSize(25)
+                                .descriptionTextSize(15)
+                                .descriptionTextColor(R.color.accent)
+                                .drawShadow(true)
+                                .cancelable(false)// Whether tapping outside the outer circle dismisses the view
+                                .tintTarget(true)
+                                .transparentTarget(true)
+                                .outerCircleColor(R.color.fourth))
+                .listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
                         session.setFirstTime(false);
-                        Toast.makeText(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
-                        if(session.getUserDetails().get(UserSession.TO_SHOW_OFFER).trim().equalsIgnoreCase("yes")){
-                            firstOrder.setVisibility(View.VISIBLE);
-                        } else {
-                            firstOrder.setVisibility(View.GONE);
-//                            fab.setVisibility(View.VISIBLE);
-                        }
+                        Toasty.success(MainActivity.this, " You are ready to go !", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -209,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
 
         //populating Image slider
         ArrayList<String> sliderImages = new ArrayList<>();
-        sliderImages.add("https://i.ibb.co/3Ct45dX/slider-Image.jpg");
-        sliderImages.add("https://i.ibb.co/99zX0BK/1-l-Pl3-LBUBm8a-O61-J2q-U6-VVg.jpg");
+        sliderImages.add("http://aapkarashanwala.com/img/slider/slider1.jpg");
+        sliderImages.add("http://aapkarashanwala.com/img/slider/slider2.jpg");
 
         for (String s : sliderImages) {
             DefaultSliderView sliderView = new DefaultSliderView(this);
@@ -250,9 +203,9 @@ public class MainActivity extends AppCompatActivity {
 //        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.wishlist).withIcon(R.drawable.wishlist);
         PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.cart).withIcon(R.drawable.cart);
         PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.logout).withIcon(R.drawable.logout);
-        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.call).withIcon(R.drawable.baseline_call_black_24dp);
+        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.call).withIcon(R.drawable.helpccenter);
 
-        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Share Our App").withIcon(R.drawable.baseline_share_black_24dp);
+//        SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName("Offers").withIcon(R.drawable.tag);
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(R.string.aboutapp).withIcon(R.drawable.credits);
         SecondaryDrawerItem item9 = new SecondaryDrawerItem().withIdentifier(9).withName(R.string.feedback).withIcon(R.drawable.feedback);
         SecondaryDrawerItem item10 = new SecondaryDrawerItem().withIdentifier(10).withName(R.string.helpcentre).withIcon(R.drawable.helpccenter);
@@ -266,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 .withAccountHeader(headerResult)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
-                        item1, item2, item4, item6,item7, new DividerDrawerItem(), item9, item10, new DividerDrawerItem(), item12, item13
+                        item1, item2, item4, item6, new DividerDrawerItem(), item9, item10, new DividerDrawerItem(), item12, item13
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -291,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 //                                finish();
 //                                break;
                             case 4:
-                                String number = ("tel:9024088049");
+                                String number = ("tel:9950257451");
                                  mIntent = new Intent(Intent.ACTION_CALL);
                                 mIntent.setData(Uri.parse(number));
 // Here, thisActivity is the current activity
@@ -316,28 +269,25 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 break;
                             case 5:
-                                share();
                                 break;
                             case 6:
-                                break;
-                            case 7:
                                 new EasyFeedback.Builder(MainActivity.this)
                                         .withEmail("apkarashanwal@gmail.com")
                                         .withSystemInfo()
                                         .build()
                                         .start();
                                 break;
-                            case 8:
+                            case 7:
                                 startActivity(new Intent(MainActivity.this, HelpCenter.class));
                                 break;
-                            case 9:
+                            case 8:
                                 break;
-                            case 10:
+                            case 9:
                                 session.setFirstTimeLaunch(true);
                                 startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                                 finish();
                                 break;
-                            case 11:
+                            case 10:
                                 if (result != null && result.isDrawerOpen()) {
                                     result.closeDrawer();
                                 }
@@ -373,48 +323,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewProfile(View view) {
         startActivity(new Intent(MainActivity.this, Profile.class));
-    }
-
-    public void share() {
-        try {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "ApkaRashanWala");
-            String shareMessage= "\nWe have a wide range of quality products | Assured Quality. Affordable Price - At Your Home\n\n\n";
-            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-            startActivity(Intent.createChooser(shareIntent, "Choose one"));
-        } catch(Exception e) {
-            //e.toString();
-        }
-    }
-
-
-    public void call(View view){
-        String number = ("tel:9024088049");
-        mIntent = new Intent(Intent.ACTION_CALL);
-        mIntent.setData(Uri.parse(number));
-// Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.CALL_PHONE},
-                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
-
-            // MY_PERMISSIONS_REQUEST_CALL_PHONE is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-        } else {
-            //You already have permission
-            try {
-                startActivity(mIntent);
-            } catch(SecurityException e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 
     public void viewCart(View view) {
@@ -461,57 +369,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void productOpenActivity(View view){
         String tag = view.getTag().toString();
-        if (tag.equalsIgnoreCase("apkarashan")){
-            Intent intent = new Intent(MainActivity.this, MainApkaRashanWalaActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(MainActivity.this, SubCategory.class);
-            intent.putExtra("categoryId", tag);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-
-    }
-
-    public void listOpenActivity(View view){
-        Intent intent = new Intent(MainActivity.this, SubCategory.class);
-        intent.putExtra("categoryId", "61");
+        Intent intent = new Intent(MainActivity.this, ProductList.class);
+        intent.putExtra("categoryId", tag);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
-    public void listOpenActivity2(View view){
-        Intent intent = new Intent(MainActivity.this, SubCategory.class);
-        intent.putExtra("categoryId", "62");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    public void listOpenActivity3(View view){
-        Intent intent = new Intent(MainActivity.this, SubCategory.class);
-        intent.putExtra("categoryId", "53");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    public void openWhatsApp(View view){
-        String phone = "+919950257451";
-        String message = "कृपया हमें अपने order की फोटो भेजें";
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-
-        try {
-            String url = "https://api.whatsapp.com/send?phone="+ phone +"&text=" + URLEncoder.encode(message, "UTF-8");
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
 
 }
