@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        style="@style/homegridcard2"
+        card_view:cardCornerRadius="@dimen/card_album_radius"
+        android:id="@+id/card_view">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <ImageView
+                style="@style/homegridimage2"
+                android:id="@+id/image"
+                android:src="@drawable/noimage" />
+
+            <TextView
+                android:text="Item"
+                android:id="@+id/text"
+                android:singleLine="true"
+                android:visibility="visible"
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/image"
+                android:layout_toLeftOf="@+id/rightarrow"
+
+                style="@style/homegridtext2"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/rightarrow"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/rightarrow"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
