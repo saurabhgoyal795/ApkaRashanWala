@@ -37,6 +37,7 @@
                     android:text="Denim Shirt"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/text_size_xmedium"
+                    android:singleLine="true"
                     android:textStyle="bold"
                     android:layout_weight="9"/>
 

@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.dev.apkarashanwala.networksync.CheckInternetConnection;
 import com.dev.apkarashanwala.networksync.RegisterRequest;
 import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
+import com.dev.apkarashanwala.usersession.UserSession;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -43,17 +44,18 @@ import java.io.InputStream;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
 
 public class Register extends AppCompatActivity {
 
-    private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber;
-    private String check,name,email,password,mobile,profile;
+    private EditText edtname, edtemail, edtpass, edtcnfpass, edtnumber,refId;
+    private String check,name,email,password,mobile,profile,refIdValue;
     CircleImageView image;
     ImageView upload;
     RequestQueue requestQueue;
     boolean IMAGE_STATUS = false;
     Bitmap profilePicture;
+    private UserSession session;
+
     public static final String TAG = "MyTag";
 
 
@@ -76,7 +78,7 @@ public class Register extends AppCompatActivity {
         edtpass = findViewById(R.id.password);
         edtcnfpass = findViewById(R.id.confirmpassword);
         edtnumber = findViewById(R.id.number);
-
+        refId = findViewById(R.id.refId);
         edtname.addTextChangedListener(nameWatcher);
         edtemail.addTextChangedListener(emailWatcher);
         edtpass.addTextChangedListener(passWatcher);
@@ -85,6 +87,8 @@ public class Register extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(Register.this);
 
+        session= new UserSession(getApplicationContext());
+
         //validate user details and register user
 
         Button button=findViewById(R.id.register);
@@ -92,16 +96,23 @@ public class Register extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //TODO AFTER VALDATION
-                if (validateProfile() && validateName() && validateEmail() && validatePass() && validateCnfPass() && validateNumber()){
-
+                if (!validateName()){
+                    Toast.makeText(getApplicationContext(),"Please Enter the Name",Toast.LENGTH_SHORT).show();
+                }else if (! validateEmail()){
+                    Toast.makeText(getApplicationContext(),"Please Enter Valid Email",Toast.LENGTH_SHORT).show();
+                }else if (! validatePass()) {
+                    Toast.makeText(getApplicationContext(),"Please Enter Valid Password",Toast.LENGTH_SHORT).show();
+                }else if (!validateNumber()){
+                    Toast.makeText(getApplicationContext(),"Please Enter Valid 10 digit number",Toast.LENGTH_SHORT).show();
+                } else if ( validateName() && validateEmail() && validatePass() && validateNumber()){
                     name=edtname.getText().toString();
                     email=edtemail.getText().toString();
-                    password=edtcnfpass.getText().toString();
+                    password=edtpass.getText().toString();
                     mobile=edtnumber.getText().toString();
-
-
+                    refIdValue = refId.getText().toString().trim();
+                    if(refIdValue == ""){
+                        refIdValue = "-1";
+                    }
                     final KProgressHUD progressDialog=  KProgressHUD.create(Register.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setLabel("Please wait")
@@ -112,8 +123,8 @@ public class Register extends AppCompatActivity {
 
 
                     //Validation Success
-                    convertBitmapToString(profilePicture);
-                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email, profile, new Response.Listener<String>() {
+//                    convertBitmapToString(profilePicture);
+                    RegisterRequest registerRequest = new RegisterRequest(name, password, mobile, email,refIdValue, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             progressDialog.dismiss();
@@ -121,18 +132,24 @@ public class Register extends AppCompatActivity {
                             Log.e("Rsponse from server", response);
 
                             try {
-                                if (new JSONObject(response).getBoolean("success")) {
+                                if (new JSONObject(response).getJSONObject("response").has("success")) {
 
-                                    Toasty.success(Register.this,"Registered Succesfully",Toast.LENGTH_SHORT,true).show();
+                                    Toast.makeText(Register.this,"Registered Succesfully ",Toast.LENGTH_SHORT).show();
 
-                                    sendRegistrationEmail(name,email);
+//                                    sendRegistrationEmail(name,email);
+                                    session.createLoginSession(name,email,mobile, "logo.jpg",new JSONObject(response).getJSONObject("response").getString("success"),refIdValue,"yes");
 
+                                    //count value of firebase cart and wishlist
+
+                                    Intent loginSuccess = new Intent(Register.this, MainActivity.class);
+                                    startActivity(loginSuccess);
+                                    finish();
 
                                 } else
-                                    Toasty.error(Register.this,"User Already Exist",Toast.LENGTH_SHORT,true).show();
+                                    Toast.makeText(Register.this,"User Already Exist",Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toasty.error(Register.this,"Failed to Register",Toast.LENGTH_LONG,true).show();
+                                Toast.makeText(Register.this,"Failed to Register",Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -212,11 +229,11 @@ public class Register extends AppCompatActivity {
                         .withSendingMessage("Sending Welcome Greetings to Your Email !")
                         .withSendingMessageSuccess("Kindly Check Your Email now !")
                         .withSendingMessageError("Failed to send password ! Try Again !")
-                        .withUsername("beingdevofficial@gmail.com")
-                        .withPassword("Singh@30")
+                        .withUsername("apkarashanwala@gmail.com")
+                        .withPassword("Aa!102030")
                         .withMailto(emails)
                         .withType(BackgroundMail.TYPE_PLAIN)
-                        .withSubject("Greetings from Magic Print")
+                        .withSubject("Greetings from Apka RashanWala")
                         .withBody("Hello Mr/Miss, "+ name + "\n " + getString(R.string.registermail1))
                         .send();
 
@@ -253,7 +270,7 @@ public class Register extends AppCompatActivity {
 
     private boolean validateProfile() {
         if (!IMAGE_STATUS)
-            Toasty.info(Register.this,"Select A Profile Picture",Toast.LENGTH_LONG).show();
+            Toast.makeText(Register.this,"Select A Profile Picture",Toast.LENGTH_LONG).show();
         return IMAGE_STATUS;
     }
 
@@ -261,9 +278,7 @@ public class Register extends AppCompatActivity {
 
         check = edtnumber.getText().toString();
         Log.e("inside number",check.length()+" ");
-        if (check.length()>10) {
-           return false;
-        }else if(check.length()<10){
+        if(check.length()<10){
             return false;
         }
         return true;
@@ -281,10 +296,8 @@ public class Register extends AppCompatActivity {
 
         check = edtpass.getText().toString();
 
-        if (check.length() < 4 || check.length() > 20) {
+        if (check.length() < 1 || check.length() > 50) {
            return false;
-        } else if (!check.matches("^[A-za-z0-9@]+")) {
-            return false;
         }
         return true;
     }
@@ -293,9 +306,7 @@ public class Register extends AppCompatActivity {
 
         check = edtemail.getText().toString();
 
-        if (check.length() < 4 || check.length() > 40) {
-            return false;
-        } else if (!check.matches("^[A-za-z0-9.@]+")) {
+        if (check.length() < 1 || check.length() > 50) {
             return false;
         } else if (!check.contains("@") || !check.contains(".")) {
                 return false;
@@ -308,7 +319,7 @@ public class Register extends AppCompatActivity {
 
         check = edtname.getText().toString();
 
-        return !(check.length() < 4 || check.length() > 20);
+        return !(check.length() < 1 || check.length() > 50);
 
     }
 
@@ -330,8 +341,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 20) {
-                edtname.setError("Name Must consist of 4 to 20 characters");
+            if (check.length() < 1 || check.length() > 50) {
+                edtname.setError("Name Must consist of 1 to 50 characters");
             }
         }
 
@@ -355,10 +366,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 40) {
-                edtemail.setError("Email Must consist of 4 to 20 characters");
-            } else if (!check.matches("^[A-za-z0-9.@]+")) {
-                edtemail.setError("Only . and @ characters allowed");
+            if (check.length() < 1 || check.length() > 50) {
+                edtemail.setError("Email Must consist of 1 to 40 characters");
             } else if (!check.contains("@") || !check.contains(".")) {
                 edtemail.setError("Enter Valid Email");
             }
@@ -385,10 +394,8 @@ public class Register extends AppCompatActivity {
 
             check = s.toString();
 
-            if (check.length() < 4 || check.length() > 20) {
-                edtpass.setError("Password Must consist of 4 to 20 characters");
-            } else if (!check.matches("^[A-za-z0-9@]+")) {
-                edtemail.setError("Only @ special character allowed");
+            if (check.length() < 1 || check.length() > 50) {
+                edtpass.setError("Password Must consist of 1 to 30 characters");
             }
         }
 
@@ -457,6 +464,12 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onStop () {
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
 

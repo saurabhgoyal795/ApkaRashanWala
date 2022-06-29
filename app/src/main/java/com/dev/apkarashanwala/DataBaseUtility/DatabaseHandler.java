@@ -8,13 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.dev.apkarashanwala.Utility.CommonUtility;
 import com.dev.apkarashanwala.db.CartItemDB;
+import com.dev.apkarashanwala.db.OrderDB;
 import com.dev.apkarashanwala.db.ProductItemDB;
+import com.dev.apkarashanwala.db.SubCategoryItemDB;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private Context mContext;
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 6;
     public static String DATABASE_NAME = "ARW";
     private static boolean mIsCreatingDB;
     private static boolean mIsReadingDB;
@@ -44,7 +46,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         mIsCreatingDB = true;
         ProductItemDB.onCreate(db);
         CartItemDB.onCreate(db);
-
+        OrderDB.onCreate(db);
+        SubCategoryItemDB.onCreate(db);
         mIsCreatingDB = false;
     }
 
@@ -52,6 +55,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try{
             ProductItemDB.onUpgrade(db,oldVersion,newVersion);
+            CartItemDB.onUpgrade(db,oldVersion,newVersion);
+            OrderDB.onUpgrade(db,oldVersion,newVersion);
+            SubCategoryItemDB.onUpgrade(db,oldVersion,newVersion);
 
         } catch(Throwable e) {
         if(CommonUtility.isDebugModeOn) {

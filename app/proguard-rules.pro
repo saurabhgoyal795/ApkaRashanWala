@@ -25,7 +25,11 @@
 #-renamesourcefileattribute SourceFile
 
 -dontwarn org.apache.**
-
+ -ignorewarnings
+ -keepclassmembers enum * {
+     public static **[] values();
+     public static ** valueOf(java.lang.String);
+ }
 -keep class org.apache.http.**
 
 -keep interface org.apache.http.**

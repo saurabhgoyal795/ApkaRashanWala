@@ -25,7 +25,7 @@
         <TextView
             android:layout_marginTop="10dp"
             android:textColor="#fff"
-            android:textSize="45sp"
+            android:textSize="35sp"
             android:id="@+id/appname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +38,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="170dp"
+            android:visibility="gone"
             android:padding="10dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -105,6 +106,7 @@
             app:met_floatingLabel="highlight"
             app:met_baseColor="@color/colorAccent"
             app:met_clearButton="true"
+            android:visibility="gone"
             app:met_errorColor="@color/darkWhite"
             app:met_primaryColor="@color/colorAccent"
             android:inputType="textPassword"/>
@@ -115,6 +117,19 @@
             android:layout_height="wrap_content"
             android:hint="Mobile Number"
             app:met_iconLeft="@android:drawable/stat_sys_phone_call"
+            app:met_floatingLabel="highlight"
+            app:met_baseColor="@color/colorAccent"
+            app:met_errorColor="@color/darkWhite"
+            app:met_clearButton="true"
+            app:met_primaryColor="@color/colorAccent"
+            android:inputType="number"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/refId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Reference Id (Optional)"
+            app:met_iconLeft="@android:drawable/stat_notify_more"
             app:met_floatingLabel="highlight"
             app:met_baseColor="@color/colorAccent"
             app:met_errorColor="@color/darkWhite"
@@ -151,6 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forgot"
+                android:visibility="gone"
                 style="@style/fonts"/>
 
             <TextView
@@ -158,6 +174,7 @@
                 android:layout_height="wrap_content"
                 android:text="|"
                 style="@style/fonts"
+                android:visibility="gone"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
@@ -166,7 +183,7 @@
                 android:id="@+id/login_now"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/fonts"
+                style="@style/headingfonts"
                 android:text="@string/login_now"/>
 
         </LinearLayout>
